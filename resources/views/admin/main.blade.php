@@ -44,6 +44,8 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/animate-css/animate.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />
 
     <!-- Page CSS -->
 
@@ -118,11 +120,13 @@
     <!-- Vendors JS -->
     <script src="{{ asset('backend/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
     <script src="{{ asset('backend/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
 
     <!-- Main JS -->
     <script src="{{ asset('backend/assets/js/main.js') }}"></script>
 
     <!-- Page JS -->
     <script src="{{ asset('backend/assets/js/app-logistics-dashboard.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/extended-ui-sweetalert2.js') }}"></script>
   </body>
 </html>

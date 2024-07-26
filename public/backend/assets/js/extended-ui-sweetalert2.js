@@ -31,6 +31,18 @@
     confirmText = document.querySelector('#confirm-text'),
     confirmColor = document.querySelector('#confirm-color');
 
+  if (typeof successMessage !== 'undefined' && successMessage) {
+    Swal.fire({
+      title: 'Success!',
+      text: successMessage,
+      icon: 'success',
+      customClass: {
+        confirmButton: 'btn btn-primary waves-effect waves-light'
+      },
+      buttonsStyling: false
+    });
+  }
+
   // Basic Alerts
   // --------------------------------------------------------------------
 
