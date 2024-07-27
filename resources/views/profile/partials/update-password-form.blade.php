@@ -2,7 +2,7 @@
     <h5 class="card-header">Change Password</h5>
     <div class="card-body">
 
-        <form method="post" action="{{ route('password.update') }}">
+        <form method="post" action="{{ route('password.update') }}" id="formPasswordSettings">
             @csrf
             @method('put')
         

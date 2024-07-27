@@ -31,7 +31,7 @@
     <hr class="my-0" />
     <div class="card-body">
 
-        <form method="post" action="{{ route('profile.update') }}">
+        <form method="post" action="{{ route('profile.update') }}" id="formAccountSettings">
             @csrf
             @method('patch')
             <div class="row">
