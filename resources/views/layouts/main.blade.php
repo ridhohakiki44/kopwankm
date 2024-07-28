@@ -68,14 +68,14 @@
       <div class="layout-container">
         
         <!-- Sidebar -->
-        @include('admin.layouts.sidebar')
+        @include('layouts.sidebar')
         <!-- / Sidebar -->
 
         <!-- Layout container -->
         <div class="layout-page">
 
           <!-- Topbar -->
-          @include('admin.layouts.topbar')
+          @include('layouts.topbar')
           <!-- / Topbar -->
 
           <!-- Content wrapper -->
@@ -86,7 +86,7 @@
             <!-- / Content -->
 
             <!-- Footer -->
-            @include('admin.layouts.footer')
+            @include('layouts.footer')
             <!-- / Footer -->
 
             <div class="content-backdrop fade"></div>
