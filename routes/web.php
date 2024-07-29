@@ -18,14 +18,25 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::get('/dashboard', function () {
-    return view('pengelola.sekretaris.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// Hanya user tanpa role yang dapat mengakses laman dashboard-no-role
+Route::get('/dashboard-no-role', function () {
+    if (auth()->user() && in_array(auth()->user()->role, ['ketua', 'sekretaris', 'bendahara', 'anggota'])) {
+        return redirect('/dashboard');
+    }
+    return view('dashboard-no-role');
+})->middleware(['auth'])->name('dashboard-no-role');
+
+// Combine dashboard routes
+Route::group(['middleware' => ['auth', 'role:ketua,sekretaris,bendahara,anggota']], function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 });
 
 require __DIR__.'/auth.php';
