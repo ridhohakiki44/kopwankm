@@ -302,7 +302,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
             <li>
-                <a class="dropdown-item" href="pages-account-settings-account.html">
+                <div class="dropdown-item">
                 <div class="d-flex">
                     <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
@@ -310,11 +310,11 @@
                     </div>
                     </div>
                     <div class="flex-grow-1">
-                    <span class="fw-medium d-block">John Doe</span>
-                    <small class="text-muted">Admin</small>
+                    <span class="fw-medium d-block">{{ auth()->user()->name }}</span>
+                    <small class="text-muted">{{ auth()->user()->role }}</small>
                     </div>
                 </div>
-                </a>
+                </div>
             </li>
             <li>
                 <div class="dropdown-divider"></div>
