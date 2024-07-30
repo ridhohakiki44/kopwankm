@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
@@ -27,14 +28,11 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
         // Ambil pengguna saat ini
         $user = $request->user();
+
+        // Dapatkan data yang sudah divalidasi
+        $validatedData = $request->validated();
 
         // Hapus avatar lama jika ada dan unggahan baru
         if ($request->hasFile('avatar')) {
@@ -45,7 +43,15 @@ class ProfileController extends Controller
             $user->avatar = $path;
         }
 
-        $request->user()->save();
+        // Isi atribut lainnya kecuali avatar
+        // $user->fill($request->except('avatar')->validated());
+        $user->fill(Arr::except($validatedData, ['avatar']));
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
