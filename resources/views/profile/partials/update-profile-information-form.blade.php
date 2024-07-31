@@ -39,16 +39,6 @@
                         value="{{ old('email', $user->email) }}" placeholder="john.doe@example.com" required />
                 </div>
 
-                <div class="mb-3 col-md-6">
-                    <label class="form-label" for="nomorTelepon">Nomor Telepon</label>
-                    <input type="text" id="nomorTelepon" name="nomorTelepon" class="form-control"
-                        placeholder="081234567890" />
-                </div>
-
-                <div class="mb-3 col-md-6">
-                    <label for="address" class="form-label">Address</label>
-                    <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
-                </div>
             </div>
 
             <div class="mt-2">
