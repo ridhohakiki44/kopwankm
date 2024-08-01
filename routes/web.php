@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PermohonanKeanggotaanController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,13 +25,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Hanya user tanpa role yang dapat mengakses laman dashboard-no-role
-Route::get('/dashboard-no-role', function () {
+Route::group(['middleware' => ['auth', 'role:,calon_anggota']], function () {
+    Route::get('/permohonan-keanggotaan', [PermohonanKeanggotaanController::class, 'index'])->name('permohonan-keanggotaan.index');
+    Route::patch('/permohonan-keanggotaan', [PermohonanKeanggotaanController::class, 'ajukan'])->name('permohonan-keanggotaan.ajukan');
+});
+
+// Hanya user tanpa role yang dapat mengakses laman welcome
+Route::get('/welcome', function () {
     if (auth()->user() && in_array(auth()->user()->role, ['ketua', 'sekretaris', 'bendahara', 'anggota'])) {
-        return redirect('/dashboard');
+        return redirect('dashboard');
     }
-    return view('dashboard-no-role');
-})->middleware(['auth'])->name('dashboard-no-role');
+    return view('welcome');
+})->middleware(['auth'])->name('welcome');
 
 // Combine dashboard routes
 Route::group(['middleware' => ['auth', 'role:ketua,sekretaris,bendahara,anggota']], function () {

@@ -44,7 +44,6 @@ class ProfileController extends Controller
         }
 
         // Isi atribut lainnya kecuali avatar
-        // $user->fill($request->except('avatar')->validated());
         $user->fill(Arr::except($validatedData, ['avatar']));
 
         if ($user->isDirty('email')) {

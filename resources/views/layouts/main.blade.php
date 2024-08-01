@@ -48,6 +48,13 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/select2/select2.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/@form-validation/form-validation.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/flatpickr/flatpickr.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/jquery-timepicker/jquery-timepicker.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/pickr/pickr-themes.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/tagify/tagify.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/bootstrap-select/bootstrap-select.css') }}" />
 
     <!-- Page CSS -->
 
@@ -129,6 +136,10 @@
     <script src="{{ asset('backend/assets/vendor/libs/@form-validation/auto-focus.js') }}"></script>
     <script src="{{ asset('backend/assets/vendor/libs/cleavejs/cleave.js') }}"></script>
     <script src="{{ asset('backend/assets/vendor/libs/cleavejs/cleave-phone.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/libs/moment/moment.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/libs/bootstrap-select/bootstrap-select.js') }}"></script>
 
     <!-- Main JS -->
     <script src="{{ asset('backend/assets/js/main.js') }}"></script>
@@ -138,5 +149,8 @@
     <script src="{{ asset('backend/assets/js/extended-ui-sweetalert2.js') }}"></script>
     <script src="{{ asset('backend/assets/js/pages-account-settings-account.js') }}"></script>
     <script src="{{ asset('backend/assets/js/pages-account-settings-security.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/forms-pickers.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/forms-selects.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/form-validation.js') }}"></script>
   </body>
 </html>

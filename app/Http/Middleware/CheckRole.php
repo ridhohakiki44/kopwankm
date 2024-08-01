@@ -14,7 +14,7 @@ class CheckRole
     public function handle($request, Closure $next, ...$roles)
     {
         if (! $request->user() || !in_array($request->user()->role, $roles)) {
-            return redirect('/dashboard-no-role');
+            return redirect('welcome');
         }
 
         return $next($request);

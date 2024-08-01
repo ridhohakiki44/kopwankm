@@ -23,6 +23,14 @@ class User extends Authenticatable
         'password',
         'role',
         'avatar',
+        'nik',
+        'alamat',
+        'nomor_telepon',
+        'tanggal_lahir',
+        'pekerjaan',
+        'penghasilan',
+        'ktp',
+        'kartu_keluarga',
     ];
 
     /**
