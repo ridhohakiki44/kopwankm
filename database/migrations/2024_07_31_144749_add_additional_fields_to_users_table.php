@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('penghasilan')->nullable()->after('pekerjaan');
             $table->string('ktp')->nullable()->after('penghasilan');
             $table->string('kartu_keluarga')->nullable()->after('ktp');
+            $table->string('status_pk')->nullable()->after('kartu_keluarga');
         });
     }
 
@@ -29,7 +30,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['nik', 'alamat', 'nomor_telepon', 'tanggal_lahir', 'pekerjaan', 'penghasilan', 'ktp', 'kartu_keluarga']);
+            $table->dropColumn(['nik', 'alamat', 'nomor_telepon', 'tanggal_lahir', 'pekerjaan', 'penghasilan', 'ktp', 'kartu_keluarga', 'status_pk']);
         });
     }
 };
