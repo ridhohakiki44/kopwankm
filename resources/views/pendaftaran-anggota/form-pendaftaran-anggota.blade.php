@@ -5,21 +5,15 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
-                <h5 class="card-header">Permohonan Keanggotaan</h5>
+                <h5 class="card-header">Pendaftaran Anggota</h5>
 
                 <div class="card-body">
-                    <form method="post" action="{{ route('permohonan-keanggotaan.ajukan') }}" id="formAccountSettings"
+                    <form method="post" action="{{ route('pendaftaran-anggota.ajukan') }}" id="formAccountSettings"
                         enctype="multipart/form-data">
                         @csrf
                         @method('patch')
 
                         <div class="row">
-
-                            <div class="mb-3 col-md-6" hidden>
-                                <label class="form-label" for="role">Role</label>
-                                <input class="form-control" type="text" id="role" name="role" value="calon_anggota"
-                                    placeholder="Role" />
-                            </div>
 
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="nik">NIK</label>

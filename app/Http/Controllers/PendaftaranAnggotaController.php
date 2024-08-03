@@ -1,0 +1,66 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
+
+class PendaftaranAnggotaController extends Controller
+{
+    // Menampilkan halaman pendaftaran anggota.
+    public function showForm(): View
+    {
+        return view('pendaftaran-anggota.form-pendaftaran-anggota');
+    }
+
+    // Pengajuan menjadi anggota.
+    public function ajukan(Request $request): RedirectResponse
+    {
+        $validatedData = $request->validate([
+            'nik' => 'nullable|string|max:20',
+            'alamat' => 'nullable|string|max:255',
+            'nomor_telepon' => 'nullable|string|max:15',
+            'tanggal_lahir' => 'nullable|date',
+            'pekerjaan' => 'nullable|string|max:255',
+            'penghasilan' => 'nullable|string|max:255',
+            'ktp' => 'nullable|string|max:255',
+            'kartu_keluarga' => 'nullable|string|max:255',
+        ]);
+
+        $user = $request->user();
+        $user->fill($validatedData);
+        $user->status_pk = 'mengajukan';
+        $user->save();
+
+        return Redirect::route('welcome')->with('status', 'Pendaftaran anggota berhasil diajukan.');
+    }
+
+    public function showVerifikasi(): View
+    {
+        $pengajuans = User::where('status_pk', 'mengajukan')->get();
+
+        return view('pendaftaran-anggota.verifikasi-pendaftaran-anggota', compact('pengajuans'));
+    }
+
+    public function verifikasi($id)
+    {
+        $user = User::findOrFail($id);
+        $user->role = 'anggota';
+        $user->status_pk = 'diverifikasi';
+        $user->save();
+        
+        return redirect()->route('verifikasi-pendaftaran')->with('status', 'Pendaftaran anggota berhasil diverifikasi.');
+    }
+
+    public function tolak($id)
+    {
+        $user = User::findOrFail($id);
+        $user->status_pk = 'ditolak';
+        $user->save();
+
+        return redirect()->route('verifikasi-pendaftaran')->with('status', 'Pendaftaran anggota berhasil ditolak.');
+    }
+}
