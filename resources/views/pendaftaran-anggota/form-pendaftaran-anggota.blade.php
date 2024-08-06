@@ -8,7 +8,7 @@
                 <h5 class="card-header">Pendaftaran Anggota</h5>
 
                 <div class="card-body">
-                    <form method="post" action="{{ route('pendaftaran-anggota.ajukan') }}" id="formAccountSettings"
+                    <form method="post" action="{{ route('pendaftaran-anggota.ajukan') }}" id="formPendaftaranAnggota"
                         enctype="multipart/form-data">
                         @csrf
                         @method('patch')
@@ -34,8 +34,8 @@
                             </div>
 
                             <div class="mb-3 col-md-6">
-                                <label for="flatpickr-date" class="form-label">Tanggal Lahir</label>
-                                <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date"
+                                <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
+                                <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="tanggal_lahir"
                                     name="tanggal_lahir" />
                             </div>
 
@@ -46,8 +46,8 @@
                             </div>
 
                             <div class="mb-3 col-md-6">
-                                <label for="select2Basic" class="form-label">Penghasilan</label>
-                                <select id="select2Basic" class="select2 form-select form-select-lg"
+                                <label for="penghasilan" class="form-label">Penghasilan</label>
+                                <select id="penghasilan" class="select2 form-select form-select-lg"
                                     data-allow-clear="true" name="penghasilan">
                                     <option value="500.000 - 1.000.000">500.000 - 1.000.000</option>
                                     <option value="1.000.000 - 1.500.000">1.000.000 - 1.500.000</option>

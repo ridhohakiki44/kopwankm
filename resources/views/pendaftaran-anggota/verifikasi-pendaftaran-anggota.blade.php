@@ -5,8 +5,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <h5 class="card-header">Permohonan Keanggotaan</h5>
-                    <div class="card-datatable text-nowrap" style="overflow-x: auto; overflow-y: auto; height: 300px;">
-                        <table class="dt-scrollableTable table" style="width: 100%; white-space: nowrap;">
+                    <div class="card-datatable text-nowrap" id="both-scrollbars-example" style="height: 500px">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -18,7 +18,7 @@
                                     <th>Pekerjaan</th>
                                     <th>Penghasilan</th>
                                     <th>KTP</th>
-                                    <th>Kartu Keluarga</th>
+                                    <th>KK</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -33,15 +33,22 @@
                                     <td>{{ $pengajuan->tanggal_lahir }}</td>
                                     <td>{{ $pengajuan->pekerjaan }}</td>
                                     <td>{{ $pengajuan->penghasilan }}</td>
-                                    <td>{{ $pengajuan->ktp }}</td>
-                                    <td>{{ $pengajuan->kartu_keluarga }}</td>
+                                    <td>
+                                        <img src="{{ asset('storage/' . $pengajuan->ktp) }}" alt="KTP" width="50"
+                                            data-bs-toggle="modal" data-bs-target="#modals-transparent" data-image="{{ asset('storage/' . $pengajuan->ktp) }}">
+                                    </td>
+                                    <td>
+                                        <img src="{{ asset('storage/' . $pengajuan->kartu_keluarga) }}" alt="Kartu Keluarga" width="50" 
+                                            data-bs-toggle="modal" data-bs-target="#modals-transparent" data-image="{{ asset('storage/' . $pengajuan->kartu_keluarga) }}">
+                                    </td>
                                     <td>
                                         <span class="badge bg-label-primary">{{ $pengajuan->status_pk }}</span>
                                     </td>
                                     <td>
                                         <div class="d-flex">
                                             <form method="post"
-                                                action="{{ route('verifikasi-pendaftaran.verifikasi', $pengajuan->id) }}" class="me-1">
+                                                action="{{ route('verifikasi-pendaftaran.verifikasi', $pengajuan->id) }}"
+                                                class="me-1">
                                                 @csrf
                                                 @method('patch')
                                                 <button type="submit" class="btn btn-sm btn-success">Verifikasi</button>
@@ -55,6 +62,17 @@
                                         </div>
                                     </td>
                                 </tr>
+
+                                <!-- Modal transparan -->
+                                <div class="modal modal-transparent fade" id="modals-transparent" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <img id="modalImage" src="" class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </table>
                     </div>
@@ -64,5 +82,15 @@
     </div>
     <script>
         var successMessage = @json(session('status'));
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = document.getElementById('modals-transparent');
+            modal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var imageUrl = button.getAttribute('data-image');
+                var modalImage = document.getElementById('modalImage');
+                modalImage.src = imageUrl;
+            });
+        });
     </script>
 @endsection

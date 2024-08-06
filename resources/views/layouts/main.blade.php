@@ -140,6 +140,7 @@
     <script src="{{ asset('backend/assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
     <script src="{{ asset('backend/assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('backend/assets/vendor/libs/bootstrap-select/bootstrap-select.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
     <!-- Main JS -->
     <script src="{{ asset('backend/assets/js/main.js') }}"></script>
@@ -149,8 +150,8 @@
     <script src="{{ asset('backend/assets/js/extended-ui-sweetalert2.js') }}"></script>
     <script src="{{ asset('backend/assets/js/pages-account-settings-account.js') }}"></script>
     <script src="{{ asset('backend/assets/js/pages-account-settings-security.js') }}"></script>
-    <script src="{{ asset('backend/assets/js/forms-pickers.js') }}"></script>
-    <script src="{{ asset('backend/assets/js/forms-selects.js') }}"></script>
-    <script src="{{ asset('backend/assets/js/form-validation.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/extended-ui-perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/ui-modals.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/form-pendaftaran-anggota.js') }}"></script>
   </body>
 </html>
