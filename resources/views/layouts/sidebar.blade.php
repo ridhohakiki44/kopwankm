@@ -48,9 +48,23 @@
       </li>
      
       <li class="menu-item">
-        <a href="app-email.html" class="menu-link">
+        <a href="#" class="menu-link">
           <i class="menu-icon tf-icons ti ti-mail"></i>
-          <div data-i18n="Email">Email</div>
+          <div data-i18n="Simpanan">Simpanan</div>
+        </a>
+      </li>
+
+      <li class="menu-item">
+        <a href="#" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-mail"></i>
+          <div data-i18n="Pinjaman">Pinjaman</div>
+        </a>
+      </li>
+
+      <li class="menu-item">
+        <a href="#" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-mail"></i>
+          <div data-i18n="Pembayaran">Pembayaran</div>
         </a>
       </li>
     </ul>
