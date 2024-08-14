@@ -1,9 +1,9 @@
 <div class="card mb-4">
-    <h5 class="card-header">Profile Details</h5>
     <!-- Account -->
     <form method="post" action="{{ route('profile.update') }}" id="formAccountSettings" enctype="multipart/form-data">
         @csrf
         @method('patch')
+        <h5 class="card-header">Profile Details</h5>
         <div class="card-body">
             <div class="d-flex align-items-start align-items-sm-center gap-4">
                 <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('storage/avatars/default-avatar.png') }}"
