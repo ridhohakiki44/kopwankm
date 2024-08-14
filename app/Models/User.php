@@ -75,4 +75,14 @@ class User extends Authenticatable
     {
         return $this->role === 'anggota';
     }
+
+    public function savings()
+    {
+        return $this->hasMany(Saving::class);
+    }
+
+    public function loans()
+    {
+        return $this->hasMany(Loan::class);
+    }
 }

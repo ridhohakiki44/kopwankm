@@ -1,0 +1,68 @@
+@extends('layouts.main')
+@section('content')
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <h5 class="card-header">Pinjaman</h5>
+                    <div class="card-body">
+                        @if ($loans->isEmpty() || $loans->every(fn($loan) => $loan->status === 'lunas'))
+                            <a href="{{ route('loans.create') }}" class="btn btn-primary mb-3">Ajukan Pinjaman</a>
+                        @endif
+                        <div class="card-datatable text-nowrap" id="both-scrollbars-example" style="height: 500px">
+                            @if ($loans->isEmpty())
+                                <p>Tidak ada pinjaman.</p>
+                            @else
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Anggota</th>
+                                            <th>Jumlah Pinjaman</th>
+                                            <th>Jangka Waktu (bulan)</th>
+                                            <th>Bank</th>
+                                            <th>Nomor Rekening</th>
+                                            <th>Jaminan</th>
+                                            <th>Status</th>
+                                            <th>Keterangan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($loans as $loan)
+                                            <tr>
+                                                <td>{{ $loan->user->name }}</td>
+                                                <td>Rp{{ number_format($loan->jumlah, 2, ',', '.') }}</td>
+                                                <td>{{ $loan->jangka_waktu }}</td>
+                                                <td>{{ $loan->bank }}</td>
+                                                <td>{{ $loan->no_rek }}</td>
+                                                <td>
+                                                    <img src="{{ asset('storage/' . $loan->jaminan) }}" alt="jaminan" width="50" data-bs-toggle="modal"
+                                                        data-bs-target="#modals-transparent">
+
+                                                    <!-- Modal transparan -->
+                                                    <div class="modal modal-transparent fade" id="modals-transparent"
+                                                        tabindex="-1">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <img id="modalImage" src="{{ asset('storage/' . $loan->jaminan) }}" class="img-fluid">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>{{ $loan->status }}</td>
+                                                <td>{{ $loan->keterangan }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection

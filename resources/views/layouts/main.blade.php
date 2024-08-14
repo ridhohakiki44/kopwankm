@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/fonts/fontawesome.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/fonts/tabler-icons.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/fonts/flag-icons.css') }}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/css/rtl/core.css') }}" class="template-customizer-core-css" />
@@ -153,5 +154,7 @@
     <script src="{{ asset('backend/assets/js/extended-ui-perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('backend/assets/js/ui-modals.js') }}"></script>
     <script src="{{ asset('backend/assets/js/form-pendaftaran-anggota.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/form-pengajuan-pinjaman.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/form-tambah-simpanan.js') }}"></script>
   </body>
 </html>

@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InstallmentController;
+use App\Http\Controllers\LoanController;
+use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\PendaftaranAnggotaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SavingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,7 +53,28 @@ Route::middleware('auth')->group(function () {
         Route::get('/verifikasi-pendaftaran-anggota', [PendaftaranAnggotaController::class, 'showVerifikasi'])->name('verifikasi-pendaftaran');
         Route::patch('/verifikasi-pendaftaran-anggota/verifikasi/{id}', [PendaftaranAnggotaController::class, 'verifikasi'])->name('verifikasi-pendaftaran.verifikasi');
         Route::patch('/verifikasi-pendaftaran-anggota/tolak/{id}', [PendaftaranAnggotaController::class, 'tolak'])->name('verifikasi-pendaftaran.tolak');
+        
+        Route::get('/loans/verifikasi', [LoanController::class, 'showVerificationPage'])->name('loans.verification.page');
+        Route::post('/loans/verifikasi/setujui/{id}', [LoanController::class, 'verifySetujui'])->name('loans.setujui');
+        Route::post('/loans/verifikasi/tolak/{id}', [LoanController::class, 'verifyTolak'])->name('loans.tolak');
     });
+
+    Route::middleware(['role:anggota'])->group(function () {
+        Route::get('/savings', [SavingController::class, 'index'])->name('savings.index');
+        Route::post('/savings', [SavingController::class, 'store'])->name('savings.store');
+        
+        Route::get('/loans', [LoanController::class, 'index'])->name('loans.index');
+        Route::get('/loans/ajukan', [LoanController::class, 'create'])->name('loans.create');
+        Route::post('/loans', [LoanController::class, 'ajukan'])->name('loans.ajukan');
+        
+        Route::get('/installments', [InstallmentController::class, 'index'])->name('installments.index');
+
+        Route::get('/payment', [MidtransController::class, 'showPaymentPage'])->name('payments.index');
+        Route::post('/payment/process', [MidtransController::class, 'processPayment'])->name('payments.process');
+    });
+
 });
+
+Route::post('/midtrans/callback', [MidtransController::class, 'handleCallback']);
 
 require __DIR__.'/auth.php';

@@ -47,23 +47,30 @@
         </a>
       </li>
      
-      <li class="menu-item">
-        <a href="#" class="menu-link">
-          <i class="menu-icon tf-icons ti ti-mail"></i>
+      <li class="menu-item {{ request()->routeIs('savings.index') ? 'active' : '' }}">
+        <a href="{{ route('savings.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-credit-card"></i>
           <div data-i18n="Simpanan">Simpanan</div>
         </a>
       </li>
 
-      <li class="menu-item">
-        <a href="#" class="menu-link">
-          <i class="menu-icon tf-icons ti ti-mail"></i>
+      <li class="menu-item {{ request()->routeIs('loans.index') ? 'active' : '' }}">
+        <a href="{{ route('loans.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-credit-card"></i>
           <div data-i18n="Pinjaman">Pinjaman</div>
         </a>
       </li>
 
-      <li class="menu-item">
-        <a href="#" class="menu-link">
-          <i class="menu-icon tf-icons ti ti-mail"></i>
+      <li class="menu-item {{ request()->routeIs('installments.index') ? 'active' : '' }}">
+        <a href="{{ route('installments.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-credit-card"></i>
+          <div data-i18n="Angsuran">Angsuran</div>
+        </a>
+      </li>
+
+      <li class="menu-item {{ request()->routeIs('payments.index') ? 'active' : '' }}">
+        <a href="{{ route('payments.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-credit-card-pay"></i>
           <div data-i18n="Pembayaran">Pembayaran</div>
         </a>
       </li>

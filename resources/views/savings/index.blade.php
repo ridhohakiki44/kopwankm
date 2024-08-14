@@ -1,0 +1,73 @@
+@extends('layouts.main')
+
+@section('content')
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <h5 class="card-header">Tambah Simpanan</h5>
+                    <div class="card-body">
+                        <form action="{{ route('savings.store') }}" method="POST" id="formTambahSimpanan">
+                            @csrf
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="jenis_simpanan" class="form-label">Jenis Simpanan</label>
+                                    <select id="jenis_simpanan" class="select2 form-select form-select-lg"
+                                        data-allow-clear="true" name="jenis_simpanan">
+                                        <option value="wajib">Simpanan Wajib</option>
+                                        <option value="sukarela">Simpanan Sukarela</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label" for="jumlah">Jumlah</label>
+                                    <input type="number" name="jumlah" id="jumlah" class="form-control" required
+                                        min="1000">
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <button type="submit" class="btn btn-primary">Tambah</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h5 class="card-header">Daftar Simpanan</h5>
+                    <div class="card-body">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Jenis Simpanan</th>
+                                    <th>Jumlah</th>
+                                    <th>Status</th>
+                                    <th>Tanggal Pembayaran</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($savings as $saving)
+                                    <tr>
+                                        <td>{{ $saving->id }}</td>
+                                        <td>{{ $saving->jenis_simpanan }}</td>
+                                        <td>{{ $saving->jumlah }}</td>
+                                        <td>{{ $saving->status }}</td>
+                                        <td>
+                                            @if ($saving->status == 'dibayar')
+                                                {{ \Carbon\Carbon::parse($saving->updated_at)->translatedFormat('d F Y H:i') }}
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var successMessage = @json(session('status'));
+    </script>
+@endsection

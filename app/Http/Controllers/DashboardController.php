@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\loan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -12,7 +13,8 @@ class DashboardController extends Controller
     public function dashboard(): View
     {
         $permohonanKeanggotaanCount = User::where('status_pk', 'mengajukan')->count();
-        return view('dashboard', compact('permohonanKeanggotaanCount'));
+        $pengajuanPinjamanCount = loan::where('status', 'mengajukan')->count();
+        return view('dashboard', compact('permohonanKeanggotaanCount', 'pengajuanPinjamanCount'));
     }
 
     // dashboard user tanpa role

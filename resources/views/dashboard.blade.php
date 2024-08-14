@@ -21,6 +21,7 @@
                 </a>
             </div>
             <div class="col-sm-6 col-lg-3 mb-4">
+                <a href="{{ route('loans.verification.page') }}">
                 <div class="card card-border-shadow-warning">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2 pb-1">
@@ -28,15 +29,12 @@
                                 <span class="avatar-initial rounded bg-label-warning"><i
                                         class="ti ti-alert-triangle ti-md"></i></span>
                             </div>
-                            <h4 class="ms-1 mb-0">8</h4>
+                            <h4 class="ms-1 mb-0">{{ $pengajuanPinjamanCount }}</h4>
                         </div>
-                        <p class="mb-1">Vehicles with errors</p>
-                        <p class="mb-0">
-                            <span class="fw-medium me-1">-8.7%</span>
-                            <small class="text-muted">than last week</small>
-                        </p>
+                        <p class="mb-1">Pengajuan Pinjaman</p>
                     </div>
                 </div>
+                </a>
             </div>
             <div class="col-sm-6 col-lg-3 mb-4">
                 <div class="card card-border-shadow-danger">

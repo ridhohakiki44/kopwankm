@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Saving;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -72,8 +73,22 @@ class PendaftaranAnggotaController extends Controller
         $user->role = 'anggota';
         $user->status_pk = 'diverifikasi';
         $user->save();
+
+        // Tambahkan simpanan pokok
+        $simpananPokok = new Saving();
+        $simpananPokok->user_id = $user->id;
+        $simpananPokok->jenis_simpanan = 'pokok';
+        $simpananPokok->jumlah = 100000;
+        $simpananPokok->save();
+
+        // Tambahkan simpanan wajib
+        $simpananWajib = new Saving();
+        $simpananWajib->user_id = $user->id;
+        $simpananWajib->jenis_simpanan = 'wajib';
+        $simpananWajib->jumlah = 20000;
+        $simpananWajib->save();
         
-        return redirect()->route('verifikasi-pendaftaran')->with('status', 'Pendaftaran anggota berhasil diverifikasi.');
+        return redirect()->route('verifikasi-pendaftaran')->with('status', 'Pendaftaran anggota berhasil diverifikasi dan simpanan awal telah ditambahkan.');
     }
 
     public function tolak($id)
