@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['role:anggota'])->group(function () {
         Route::get('/savings', [SavingController::class, 'index'])->name('savings.index');
         Route::post('/savings', [SavingController::class, 'store'])->name('savings.store');
+        Route::get('/get-wajib-savings-amount', [SavingController::class, 'getWajibSavingsAmount']);
         
         Route::get('/loans', [LoanController::class, 'index'])->name('loans.index');
         Route::get('/loans/ajukan', [LoanController::class, 'create'])->name('loans.create');

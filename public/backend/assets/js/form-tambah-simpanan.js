@@ -57,7 +57,31 @@ document.addEventListener('DOMContentLoaded', function (e) {
         })
         .on('change', function () {
           fv.revalidateField('jenis_simpanan');
+
+          // Mengambil jumlah simpanan wajib
+          if (this.value === 'wajib') {
+            fetch('/get-wajib-savings-amount')
+              .then(response => response.json())
+              .then(data => {
+                document.getElementById('jumlah').value = data.jumlah;
+                document.getElementById('jumlah').setAttribute('readonly', true);
+              });
+          } else {
+            document.getElementById('jumlah').value = '';
+            document.getElementById('jumlah').removeAttribute('readonly');
+          }
         });
+
+        // Mengambil jumlah simpanan wajib ketika laman pertama kali diload
+        if (select2jenis.val() === 'wajib') {
+          fetch('/get-wajib-savings-amount')
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+              document.getElementById('jumlah').value = data.jumlah;
+              document.getElementById('jumlah').setAttribute('readonly', true);
+            });
+        }
     }
   })();
 });
