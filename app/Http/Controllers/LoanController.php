@@ -49,6 +49,7 @@ class LoanController extends Controller
     public function showVerificationPage()
     {
         $pengajuanLoans = Loan::where('status', 'mengajukan')->get();
+
         return view('loans.verifikasi', compact('pengajuanLoans'));
     }
     
@@ -85,5 +86,23 @@ class LoanController extends Controller
         $loan->save();
 
         return redirect()->route('loans.verification.page')->with('status', 'Pinjaman telah ditolak.');
+    }
+
+    public function showEditPage()
+    {
+        $pengajuanLoans = Loan::where('status', 'disetujui')->get();
+
+        return view('loans.edit', compact('pengajuanLoans'));
+    }
+
+    public function edit($id, Request $request)
+    {
+        $loan = Loan::findOrFail($id);
+
+        $loan->status = 'belum lunas';
+        $loan->keterangan = $request->keterangan;
+        $loan->save();
+
+        return redirect()->route('loans.edit.page')->with('status', 'Status dan keterangan berhasil diperbarui');
     }
 }

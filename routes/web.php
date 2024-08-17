@@ -60,13 +60,20 @@ Route::middleware('auth')->group(function () {
         Route::patch('/verifikasi-pendaftaran-anggota/verifikasi/{id}', [PendaftaranAnggotaController::class, 'verifikasi'])->name('verifikasi-pendaftaran.verifikasi');
         Route::patch('/verifikasi-pendaftaran-anggota/tolak/{id}', [PendaftaranAnggotaController::class, 'tolak'])->name('verifikasi-pendaftaran.tolak');
         
-        Route::get('/loans/verifikasi', [LoanController::class, 'showVerificationPage'])->name('loans.verification.page');
-        Route::post('/loans/verifikasi/setujui/{id}', [LoanController::class, 'verifySetujui'])->name('loans.setujui');
-        Route::post('/loans/verifikasi/tolak/{id}', [LoanController::class, 'verifyTolak'])->name('loans.tolak');
-
         Route::get('/savings/create-by-sekretaris', [SavingController::class, 'createBySekretaris'])->name('savings.createBySekretaris');
         Route::post('/savings/store-by-sekretaris', [SavingController::class, 'storeBySekretaris'])->name('savings.storeBySekretaris');
         Route::get('/get-wajib-savings-amount/{userId}', [SavingController::class, 'getWajibSavingsAmount']);
+    });
+    
+    Route::middleware('role:ketua')->group(function () {
+        Route::get('/loans/verifikasi', [LoanController::class, 'showVerificationPage'])->name('loans.verification.page');
+        Route::post('/loans/verifikasi/setujui/{id}', [LoanController::class, 'verifySetujui'])->name('loans.setujui');
+        Route::post('/loans/verifikasi/tolak/{id}', [LoanController::class, 'verifyTolak'])->name('loans.tolak');
+    });
+
+    Route::middleware('role:bendahara')->group(function () {
+        Route::get('/loans/edit', [LoanController::class, 'showEditPage'])->name('loans.edit.page');
+        Route::post('/loans/edit/{id}', [LoanController::class, 'edit'])->name('loans.edit');
     });
 
     Route::middleware(['role:anggota'])->group(function () {
