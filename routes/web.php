@@ -46,6 +46,12 @@ Route::middleware('auth')->group(function () {
     // Combine dashboard routes
     Route::middleware('role:ketua,sekretaris,bendahara,anggota')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+        Route::get('/savings', [SavingController::class, 'index'])->name('savings.index');
+
+        Route::get('/loans', [LoanController::class, 'index'])->name('loans.index');
+
+        Route::get('/installments', [InstallmentController::class, 'index'])->name('installments.index');
     });
 
     // Routes for sekretaris
@@ -57,19 +63,19 @@ Route::middleware('auth')->group(function () {
         Route::get('/loans/verifikasi', [LoanController::class, 'showVerificationPage'])->name('loans.verification.page');
         Route::post('/loans/verifikasi/setujui/{id}', [LoanController::class, 'verifySetujui'])->name('loans.setujui');
         Route::post('/loans/verifikasi/tolak/{id}', [LoanController::class, 'verifyTolak'])->name('loans.tolak');
+
+        Route::get('/savings/create-by-sekretaris', [SavingController::class, 'createBySekretaris'])->name('savings.createBySekretaris');
+        Route::post('/savings/store-by-sekretaris', [SavingController::class, 'storeBySekretaris'])->name('savings.storeBySekretaris');
+        Route::get('/get-wajib-savings-amount/{userId}', [SavingController::class, 'getWajibSavingsAmount']);
     });
 
     Route::middleware(['role:anggota'])->group(function () {
-        Route::get('/savings', [SavingController::class, 'index'])->name('savings.index');
         Route::post('/savings', [SavingController::class, 'store'])->name('savings.store');
         Route::get('/get-wajib-savings-amount', [SavingController::class, 'getWajibSavingsAmount']);
         
-        Route::get('/loans', [LoanController::class, 'index'])->name('loans.index');
         Route::get('/loans/ajukan', [LoanController::class, 'create'])->name('loans.create');
         Route::post('/loans', [LoanController::class, 'ajukan'])->name('loans.ajukan');
         
-        Route::get('/installments', [InstallmentController::class, 'index'])->name('installments.index');
-
         Route::get('/payment', [MidtransController::class, 'showPaymentPage'])->name('payments.index');
         Route::post('/payment/process', [MidtransController::class, 'processPayment'])->name('payments.process');
     });

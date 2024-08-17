@@ -156,5 +156,6 @@
     <script src="{{ asset('backend/assets/js/form-pendaftaran-anggota.js') }}"></script>
     <script src="{{ asset('backend/assets/js/form-pengajuan-pinjaman.js') }}"></script>
     <script src="{{ asset('backend/assets/js/form-tambah-simpanan.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/form-tambah-simpanan-by-sekretaris.js') }}"></script>
   </body>
 </html>

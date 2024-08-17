@@ -4,13 +4,47 @@ namespace App\Http\Controllers;
 
 use App\Models\loan;
 use App\Models\Saving;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SavingController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $savings = auth()->user()->savings;
+        if ($request->ajax()) {
+            $query = Saving::query();
+    
+            // Pencarian berdasarkan nama user (hanya untuk pengelola)
+            if ($request->has('search_name') && auth()->user()->role != 'anggota') {
+                $query->whereHas('user', function($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request->search_name . '%');
+                });
+            }
+    
+            // Pencarian berdasarkan jenis simpanan
+            if ($request->has('search_jenis')) {
+                $query->where('jenis_simpanan', 'like', '%' . $request->search_jenis . '%');
+            }
+    
+            // Pencarian berdasarkan status
+            if ($request->has('search_status')) {
+                $query->where('status', 'like', '%' . $request->search_status . '%');
+            }
+    
+            // Untuk Anggota, tambahkan filter berdasarkan ID pengguna
+            if (auth()->user()->role == 'anggota') {
+                $query->where('user_id', auth()->user()->id);
+            }
+    
+            $savings = $query->with('user')->get();
+    
+            return response()->json($savings);
+        }
+
+        $savings = auth()->user()->role == 'anggota'
+        ? auth()->user()->savings
+        : Saving::with('user')->get();
+
         return view('savings.index', compact('savings'));
     }
 
@@ -30,9 +64,38 @@ class SavingController extends Controller
         return redirect()->route('savings.index')->with('status', 'Saving created successfully.');
     }
 
-    public function getWajibSavingsAmount()
+    public function createBySekretaris()
     {
-        $user = auth()->user();
+        // Ambil semua data user dengan role 'anggota'
+        $users = User::where('role', 'anggota')->get();
+
+        return view('savings.create-by-sekretaris', compact('users'));
+    }
+
+    public function storeBySekretaris(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'jenis_simpanan' => 'required|string',
+            'jumlah' => 'required|numeric|min:1000',
+        ]);
+
+        // Buat simpanan baru
+        $saving = new Saving();
+        $saving->user_id = $request->user_id;
+        $saving->jenis_simpanan = $request->jenis_simpanan;
+        $saving->jumlah = $request->jumlah;
+        $saving->status = 'dibayar';
+        $saving->save();
+
+        // Redirect ke halaman sebelumnya dengan pesan sukses
+        return redirect()->back()->with('status', 'Simpanan berhasil ditambahkan.');
+    }
+
+    public function getWajibSavingsAmount($userId = null)
+    {
+        $user = $userId ? User::find($userId) : auth()->user();
         $loan = loan::where('user_id', $user->id)
                     ->where('status', 'belum lunas')
                     ->first();
