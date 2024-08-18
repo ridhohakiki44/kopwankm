@@ -12,6 +12,19 @@
                                 <a href="{{ route('loans.create') }}" class="btn btn-primary mb-3">Ajukan Pinjaman</a>
                             @endif
                         @endif
+                        
+                        <!-- Input Pencarian -->
+                        @if (auth()->user()->role != 'anggota')
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <input type="text" id="searchName" class="form-control mb-2" placeholder="Cari Nama">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" id="searchStatus" class="form-control mb-2" placeholder="Cari Status">
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="card-datatable text-nowrap" id="both-scrollbars-example" style="height: 500px">
                             @if ($loans->isEmpty())
                                 <p>Tidak ada pinjaman.</p>
@@ -32,7 +45,7 @@
                                             <th>Keterangan</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="loanTableBody">
                                         @foreach ($loans as $loan)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
@@ -72,5 +85,39 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInputs = {
+                name: document.getElementById('searchName'),
+                status: document.getElementById('searchStatus')
+            };
+
+            const loanTableBody = document.getElementById('loanTableBody');
+            const loans = loanTableBody.getElementsByTagName('tr');
+
+            Object.values(searchInputs).forEach(input => {
+                input && input.addEventListener('input', function () {
+                    filterTable();
+                });
+            });
+
+            function filterTable() {
+                for (let i = 0; i < loans.length; i++) {
+                    const loanRow = loans[i];
+                    let show = true;
+
+                    if (searchInputs.name && searchInputs.name.value && !loanRow.children[1].textContent.toLowerCase().includes(searchInputs.name.value.toLowerCase())) {
+                        show = false;
+                    }
+                    if (searchInputs.status && searchInputs.status.value && !loanRow.children[7].textContent.toLowerCase().includes(searchInputs.status.value.toLowerCase())) {
+                        show = false;
+                    }
+
+                    loanRow.style.display = show ? '' : 'none';
+                }
+            }
+        });
+
+    </script>
 
 @endsection
