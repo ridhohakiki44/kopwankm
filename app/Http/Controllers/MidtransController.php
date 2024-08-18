@@ -143,6 +143,17 @@ class MidtransController extends Controller
                 if ($installment && $transactionStatus == 'settlement') {
                     $installment->status = 'dibayar';
                     $installment->save();
+
+                    // Cek apakah semua angsuran terkait pinjaman ini sudah dibayar
+                    $loan = $installment->loan; // Ambil pinjaman terkait dari angsuran
+                    $remainingInstallments = $loan->installments()->where('status', 'belum bayar')->count();
+
+                    if ($remainingInstallments === 0) {
+                        // Jika tidak ada angsuran yang tersisa, ubah status pinjaman menjadi lunas
+                        $loan->status = 'lunas';
+                        $loan->keterangan = 'pinjaman sudah dilunasi';
+                        $loan->save();
+                    }
                 }
             }
         }
