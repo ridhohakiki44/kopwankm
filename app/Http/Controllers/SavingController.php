@@ -9,38 +9,8 @@ use Illuminate\Http\Request;
 
 class SavingController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        if ($request->ajax()) {
-            $query = Saving::query();
-    
-            // Pencarian berdasarkan nama user (hanya untuk pengelola)
-            if ($request->has('search_name') && auth()->user()->role != 'anggota') {
-                $query->whereHas('user', function($q) use ($request) {
-                    $q->where('name', 'like', '%' . $request->search_name . '%');
-                });
-            }
-    
-            // Pencarian berdasarkan jenis simpanan
-            if ($request->has('search_jenis')) {
-                $query->where('jenis_simpanan', 'like', '%' . $request->search_jenis . '%');
-            }
-    
-            // Pencarian berdasarkan status
-            if ($request->has('search_status')) {
-                $query->where('status', 'like', '%' . $request->search_status . '%');
-            }
-    
-            // Untuk Anggota, tambahkan filter berdasarkan ID pengguna
-            if (auth()->user()->role == 'anggota') {
-                $query->where('user_id', auth()->user()->id);
-            }
-    
-            $savings = $query->with('user')->get();
-    
-            return response()->json($savings);
-        }
-
         $savings = auth()->user()->role == 'anggota'
         ? auth()->user()->savings
         : Saving::with('user')->get();

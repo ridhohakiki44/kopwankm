@@ -42,23 +42,52 @@
                     <h5 class="card-header">Daftar Simpanan</h5>
                     <div class="card-body">
             
-                        <div class="row mb-3">
-                            @if (auth()->user()->role != 'anggota')
-                                <div class="col-md-4 mb-3">
-                                    <input type="text" id="search_name" class="form-control" placeholder="Cari Nama Anggota" onkeyup="fetchSavings()">
+                        @if (auth()->user()->role != 'anggota')
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <input type="text" id="searchName" class="form-control" placeholder="Cari Nama Anggota">
                                 </div>
-                            @endif
-                            <div class="col-md-4 mb-3">
-                                <input type="text" id="search_jenis" class="form-control" placeholder="Cari Jenis Simpanan" onkeyup="fetchSavings()">
+                                <div class="col-md-4">
+                                    <input type="text" id="searchJenis" class="form-control" placeholder="Cari Jenis Simpanan">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" id="searchStatus" class="form-control" placeholder="Cari Status">
+                                </div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <input type="text" id="search_status" class="form-control" placeholder="Cari Status" onkeyup="fetchSavings()">
-                            </div>
-                        </div>
+                        @endif
 
-                        <div id="savings-table">
-                            <!-- Tabel akan dimuat di sini -->
-                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    @if (auth()->user()->role != 'anggota')
+                                        <th>Nama Anggota</th>
+                                    @endif
+                                    <th>Jenis Simpanan</th>
+                                    <th>Jumlah</th>
+                                    <th>Status</th>
+                                    <th>Tanggal Pembayaran</th>
+                                </tr>
+                            </thead>
+                            <tbody id="savingTableBody">
+                                @foreach ($savings as $saving)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        @if (auth()->user()->role != 'anggota')
+                                            <td>{{ $saving->user->name }}</td>
+                                        @endif
+                                        <td>{{ $saving->jenis_simpanan }}</td>
+                                        <td>{{ $saving->jumlah }}</td>
+                                        <td>{{ $saving->status }}</td>
+                                        <td>
+                                            @if ($saving->status == 'dibayar')
+                                                {{ \Carbon\Carbon::parse($saving->updated_at)->translatedFormat('d F Y H:i') }}
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -67,66 +96,40 @@
     <script>
         var successMessage = @json(session('status'));
 
-        function formatDate(dateString) {
-            const optionsDate = { day: '2-digit', month: 'long', year: 'numeric' };
-            const optionsTime = { hour: '2-digit', minute: '2-digit' };
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInputs = {
+                name: document.getElementById('searchName'),
+                jenis: document.getElementById('searchJenis'),
+                status: document.getElementById('searchStatus')
+            };
 
-            const date = new Date(dateString);
-            const formattedDate = date.toLocaleDateString('id-ID', optionsDate);
-            const formattedTime = date.toLocaleTimeString('id-ID', optionsTime);
+            const savingTableBody = document.getElementById('savingTableBody');
+            const savings = savingTableBody.getElementsByTagName('tr');
 
-            return `${formattedDate}, ${formattedTime}`;
-        }
-        
-        function fetchSavings() {
-            const search_name = document.getElementById('search_name') ? document.getElementById('search_name').value : '';
-            const search_jenis = document.getElementById('search_jenis').value;
-            const search_status = document.getElementById('search_status').value;
-
-            fetch(`/savings?search_name=${search_name}&search_jenis=${search_jenis}&search_status=${search_status}`, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                let tableContent = `<table class="table">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            @if (auth()->user()->role != 'anggota')
-                                <th>Nama</th>
-                            @endif
-                            <th>Jenis Simpanan</th>
-                            <th>Jumlah</th>
-                            <th>Status</th>
-                            <th>Tanggal Pembayaran</th>
-                        </tr>
-                    </thead>
-                    <tbody>`;
-
-                data.forEach((saving, index) => {
-                    tableContent += `
-                        <tr>
-                            <td>${index + 1}</td>
-                            @if (auth()->user()->role != 'anggota')
-                                <td>${saving.user.name}</td>
-                            @endif
-                            <td>${saving.jenis_simpanan}</td>
-                            <td>Rp${new Intl.NumberFormat('id-ID').format(saving.jumlah)}</td>
-                            <td>${saving.status}</td>
-                            <td>${saving.status == 'dibayar' ? formatDate(saving.updated_at) : ''}</td>
-                        </tr>`;
+            Object.values(searchInputs).forEach(input => {
+                input && input.addEventListener('input', function () {
+                    filterTable();
                 });
+            });
 
-                tableContent += `</tbody></table>`;
-                document.getElementById('savings-table').innerHTML = tableContent;
-            })
-            .catch(error => console.error('Error:', error));
-        }
+            function filterTable() {
+                for (let i = 0; i < savings.length; i++) {
+                    const savingRow = savings[i];
+                    let show = true;
 
-        // Panggil fungsi ini untuk pertama kali agar tabel dimuat
-        fetchSavings();
-        
+                    if (searchInputs.name && searchInputs.name.value && !savingRow.children[1].textContent.toLowerCase().includes(searchInputs.name.value.toLowerCase())) {
+                        show = false;
+                    }
+                    if (searchInputs.jenis && searchInputs.jenis.value && !savingRow.children[2].textContent.toLowerCase().includes(searchInputs.jenis.value.toLowerCase())) {
+                        show = false;
+                    }
+                    if (searchInputs.status && searchInputs.status.value && !savingRow.children[4].textContent.toLowerCase().includes(searchInputs.status.value.toLowerCase())) {
+                        show = false;
+                    }
+
+                    savingRow.style.display = show ? '' : 'none';
+                }
+            }
+        });
     </script>
 @endsection
