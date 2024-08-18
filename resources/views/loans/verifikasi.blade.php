@@ -34,10 +34,10 @@
                                         <td>
                                             <img src="{{ asset('storage/' . $loan->jaminan) }}" alt="jaminan"
                                                 width="50" data-bs-toggle="modal"
-                                                data-bs-target="#modals-transparent">
+                                                data-bs-target="#modals-transparent-{{ $loop->iteration }}">
 
                                             <!-- Modal transparan -->
-                                            <div class="modal modal-transparent fade" id="modals-transparent"
+                                            <div class="modal modal-transparent fade" id="modals-transparent-{{ $loop->iteration }}"
                                                 tabindex="-1">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
