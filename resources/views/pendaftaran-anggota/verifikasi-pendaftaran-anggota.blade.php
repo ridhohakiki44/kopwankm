@@ -36,11 +36,33 @@
                                         <td>{{ $pengajuan->penghasilan }}</td>
                                         <td>
                                             <img src="{{ asset('storage/' . $pengajuan->ktp) }}" alt="KTP" width="50"
-                                                data-bs-toggle="modal" data-bs-target="#modals-transparent" data-image="{{ asset('storage/' . $pengajuan->ktp) }}">
+                                                data-bs-toggle="modal" data-bs-target="#modals-transparent-ktp-{{ $loop->iteration }}">
+
+                                            <!-- Modal transparan -->
+                                            <div class="modal modal-transparent fade" id="modals-transparent-ktp-{{ $loop->iteration }}" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-body">
+                                                            <img id="modalImage" src="{{ asset('storage/' . $pengajuan->ktp) }}" class="img-fluid">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td>
                                             <img src="{{ asset('storage/' . $pengajuan->kartu_keluarga) }}" alt="Kartu Keluarga" width="50" 
-                                                data-bs-toggle="modal" data-bs-target="#modals-transparent" data-image="{{ asset('storage/' . $pengajuan->kartu_keluarga) }}">
+                                                data-bs-toggle="modal" data-bs-target="#modals-transparent-kartu-keluarga-{{ $loop->iteration }}">
+
+                                            <!-- Modal transparan -->
+                                            <div class="modal modal-transparent fade" id="modals-transparent-kartu-keluarga-{{ $loop->iteration }}" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-body">
+                                                            <img id="modalImage" src="{{ asset('storage/' . $pengajuan->kartu_keluarga) }}" class="img-fluid">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td>
                                             <span class="badge bg-label-primary">{{ $pengajuan->status_pk }}</span>
@@ -63,17 +85,6 @@
                                             </div>
                                         </td>
                                     </tr>
-    
-                                    <!-- Modal transparan -->
-                                    <div class="modal modal-transparent fade" id="modals-transparent" tabindex="-1">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-body">
-                                                    <img id="modalImage" src="" class="img-fluid">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 @endforeach
                             </table>
                         </div>
@@ -84,15 +95,5 @@
     </div>
     <script>
         var successMessage = @json(session('status'));
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var modal = document.getElementById('modals-transparent');
-            modal.addEventListener('show.bs.modal', function(event) {
-                var button = event.relatedTarget;
-                var imageUrl = button.getAttribute('data-image');
-                var modalImage = document.getElementById('modalImage');
-                modalImage.src = imageUrl;
-            });
-        });
     </script>
 @endsection
