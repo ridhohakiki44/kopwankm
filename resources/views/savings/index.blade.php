@@ -77,7 +77,7 @@
                                             <td>{{ $saving->user->name }}</td>
                                         @endif
                                         <td>{{ $saving->jenis_simpanan }}</td>
-                                        <td>{{ $saving->jumlah }}</td>
+                                        <td>Rp{{ number_format($saving->jumlah, 2, ',', '.') }}</td>
                                         <td>{{ $saving->status }}</td>
                                         <td>
                                             @if ($saving->status == 'dibayar')
