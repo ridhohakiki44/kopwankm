@@ -17,10 +17,10 @@
                         @if (auth()->user()->role != 'anggota')
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <input type="text" id="searchName" class="form-control mb-2" placeholder="Cari Nama">
+                                    <input type="text" id="searchName" class="form-control" placeholder="Cari Nama">
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" id="searchStatus" class="form-control mb-2" placeholder="Cari Status">
+                                    <input type="text" id="searchStatus" class="form-control" placeholder="Cari Status">
                                 </div>
                             </div>
                         @endif
