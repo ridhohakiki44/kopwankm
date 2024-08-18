@@ -10,7 +10,10 @@ class LoanController extends Controller
 {
     public function index()
     {
-        $loans = auth()->user()->loans;
+        $loans = auth()->user()->role == 'anggota'
+        ? auth()->user()->loans
+        : Loan::with('user')->get();
+        
         return view('loans.index', compact('loans'));
     }
 

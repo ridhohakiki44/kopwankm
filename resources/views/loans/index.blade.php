@@ -8,7 +8,9 @@
                     <h5 class="card-header">Pinjaman</h5>
                     <div class="card-body">
                         @if ($loans->isEmpty() || $loans->every(fn($loan) => $loan->status === 'lunas'))
-                            <a href="{{ route('loans.create') }}" class="btn btn-primary mb-3">Ajukan Pinjaman</a>
+                            @if (auth()->user()->role == 'anggota')
+                                <a href="{{ route('loans.create') }}" class="btn btn-primary mb-3">Ajukan Pinjaman</a>
+                            @endif
                         @endif
                         <div class="card-datatable text-nowrap" id="both-scrollbars-example" style="height: 500px">
                             @if ($loans->isEmpty())
@@ -17,7 +19,10 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Nama Anggota</th>
+                                            <th>No</th>
+                                            @if (auth()->user()->role != 'anggota')
+                                                <th>Nama Anggota</th>
+                                            @endif
                                             <th>Jumlah Pinjaman</th>
                                             <th>Jangka Waktu (bulan)</th>
                                             <th>Bank</th>
@@ -30,7 +35,10 @@
                                     <tbody>
                                         @foreach ($loans as $loan)
                                             <tr>
-                                                <td>{{ $loan->user->name }}</td>
+                                                <td>{{ $loop->iteration }}</td>
+                                                @if (auth()->user()->role != 'anggota')
+                                                    <td>{{ $loan->user->name }}</td>
+                                                @endif
                                                 <td>Rp{{ number_format($loan->jumlah, 2, ',', '.') }}</td>
                                                 <td>{{ $loan->jangka_waktu }}</td>
                                                 <td>{{ $loan->bank }}</td>
