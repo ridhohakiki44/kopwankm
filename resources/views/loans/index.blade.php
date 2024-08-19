@@ -15,11 +15,11 @@
                         
                         <!-- Input Pencarian -->
                         @if (auth()->user()->role != 'anggota')
-                            <div class="row mb-3">
-                                <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
                                     <input type="text" id="searchName" class="form-control" placeholder="Cari Nama">
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 mb-3">
                                     <input type="text" id="searchStatus" class="form-control" placeholder="Cari Status">
                                 </div>
                             </div>

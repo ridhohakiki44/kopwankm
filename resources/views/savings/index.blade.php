@@ -42,15 +42,16 @@
                     <h5 class="card-header">Daftar Simpanan</h5>
                     <div class="card-body">
             
+                        <!-- Input Pencarian -->
                         @if (auth()->user()->role != 'anggota')
-                            <div class="row mb-3">
-                                <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
                                     <input type="text" id="searchName" class="form-control" placeholder="Cari Nama Anggota">
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 mb-3">
                                     <input type="text" id="searchJenis" class="form-control" placeholder="Cari Jenis Simpanan">
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 mb-3">
                                     <input type="text" id="searchStatus" class="form-control" placeholder="Cari Status">
                                 </div>
                             </div>
