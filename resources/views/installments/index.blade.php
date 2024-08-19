@@ -17,6 +17,10 @@
                             <div class="col-md-4">
                                 <input type="text" id="searchStatus" class="form-control" placeholder="Cari Status">
                             </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" placeholder="Rentang Tanggal Jatuh Tempo" id="flatpickr-range" />
+                            </div>
+                            
                         </div>
                     @endif
 
@@ -59,9 +63,35 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Inisialisasi flatpickr dengan locale Indonesia
+        flatpickrRange = document.querySelector('#flatpickr-range');
+        if (typeof flatpickrRange !== 'undefined') {
+            flatpickrRange.flatpickr({
+                mode: 'range',
+                dateFormat: 'd F Y',
+                locale: {
+                    firstDayOfWeek: 1,
+                    weekdays: {
+                        shorthand: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
+                        longhand: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
+                    },
+                    months: {
+                        shorthand: [
+                            'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'
+                        ],
+                        longhand: [
+                            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+                        ],
+                    },
+                }
+            });
+        }
+
         const searchInputs = {
             name: document.getElementById('searchName'),
-            status: document.getElementById('searchStatus')
+            status: document.getElementById('searchStatus'),
+            dateRange: flatpickrRange
         };
 
         const installmentTableBody = document.getElementById('installmentTableBody');
@@ -73,7 +103,19 @@
             });
         });
 
+        function parseDate(dateString) {
+            // Parsing string tanggal dengan bulan dalam bahasa Indonesia menjadi objek Date
+            const [day, monthName, year] = dateString.split(' ');
+            const months = {
+                Januari: 0, Februari: 1, Maret: 2, April: 3, Mei: 4, Juni: 5,
+                Juli: 6, Agustus: 7, September: 8, Oktober: 9, November: 10, Desember: 11
+            };
+            const month = months[monthName];
+            return new Date(year, month, day);
+        }
+
         function filterTable() {
+            const dateRange = searchInputs.dateRange.value.split(' to ');
             for (let i = 0; i < installments.length; i++) {
                 const installmentRow = installments[i];
                 let show = true;
@@ -83,6 +125,15 @@
                 }
                 if (searchInputs.status && searchInputs.status.value && !installmentRow.children[4].textContent.toLowerCase().includes(searchInputs.status.value.toLowerCase())) {
                     show = false;
+                }
+                if (dateRange.length === 2) {
+                    const startDate = parseDate(dateRange[0]);
+                    const endDate = parseDate(dateRange[1]);
+                    const installmentDate = parseDate(installmentRow.children[3].textContent);
+
+                    if (installmentDate < startDate || installmentDate > endDate) {
+                        show = false;
+                    }
                 }
 
                 installmentRow.style.display = show ? '' : 'none';
