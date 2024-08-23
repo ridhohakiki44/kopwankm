@@ -38,7 +38,7 @@
                         <p>Tidak ada riwayat transaksi</p>
                     @else
                         <div class="table-responsive">
-                            <table class="table" style="width: 1323px;">
+                            <table class="table" style="width: 1170px;">
                                 <thead>
                                     <tr>
                                         <th>No</th>
