@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Installment;
 use App\Models\loan;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class LoanController extends Controller
@@ -105,6 +106,20 @@ class LoanController extends Controller
         $loan->status = 'belum lunas';
         $loan->keterangan = $request->keterangan;
         $loan->save();
+
+        // Ambil saldo dari transaksi terakhir
+        $currentBalance = Transaction::latest('id')->first()->balance ?? 0;
+        
+        // Menghitung saldo berdasarkan debit
+        $balance = $currentBalance - $loan->jumlah;
+
+        // Menyimpan data transaksi simpanan
+        Transaction::create([
+            'date' => now(),
+            'description' => "Diberikan pinjaman kepada anggota a/n {$loan->user->name}",
+            'credit' => $loan->jumlah,
+            'balance' => $balance,
+        ]);
 
         return redirect()->route('loans.edit.page')->with('status', 'Status dan keterangan berhasil diperbarui');
     }
