@@ -5,13 +5,18 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <h5 class="card-header">Pinjaman</h5>
-                    <div class="card-body">
+                    <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-center">
+                        <h5 class="mb-3 mb-md-0">Pinjaman</h5>
+
                         @if ($loans->isEmpty() || $loans->every(fn($loan) => $loan->status === 'lunas'))
                             @if (auth()->user()->role == 'anggota')
-                                <a href="{{ route('loans.create') }}" class="btn btn-primary mb-3">Ajukan Pinjaman</a>
+                                <a href="{{ route('loans.create') }}" class="btn btn-primary">Ajukan Pinjaman</a>
                             @endif
                         @endif
+                    </div>
+
+
+                    <div class="card-body">
                         
                         <!-- Input Pencarian -->
                         @if (auth()->user()->role != 'anggota')
@@ -25,11 +30,11 @@
                             </div>
                         @endif
 
-                        <div class="card-datatable text-nowrap" id="both-scrollbars-example" style="height: 500px">
+                        <div class="table-responsive">
                             @if ($loans->isEmpty())
                                 <p>Tidak ada pinjaman.</p>
                             @else
-                                <table class="table">
+                                <table class="table" style="width: 1350px;">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -72,7 +77,17 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>{{ $loan->status }}</td>
+                                                <td>
+                                                    <span class="badge 
+                                                        @if($loan->status == 'mengajukan') bg-label-primary 
+                                                        @elseif($loan->status == 'ditolak') bg-label-danger 
+                                                        @elseif($loan->status == 'disetujui') bg-label-success 
+                                                        @elseif($loan->status == 'belum lunas') bg-label-warning 
+                                                        @elseif($loan->status == 'lunas') bg-label-success 
+                                                        @endif">
+                                                        {{ $loan->status }}
+                                                    </span>
+                                                </td>
                                                 <td>{{ $loan->keterangan }}</td>
                                             </tr>
                                         @endforeach

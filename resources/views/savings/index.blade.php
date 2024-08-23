@@ -35,12 +35,17 @@
                 @endif
 
                 <div class="card">
-                    <h5 class="card-header d-flex justify-content-between align-items-center">
-                        Daftar Simpanan
+                    <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-center">
+                        <h5 class="mb-3 mb-md-0">Daftar Simpanan</h5>
+
                         @if (auth()->user()->role == 'sekretaris')
-                            <a href="{{ route('savings.createBySekretaris') }}" class="btn btn-primary">Tambah Simpanan</a>
+                            <a href="{{ route('savings.createBySekretaris') }}" class="btn btn-primary">
+                                <i class="ti ti-plus d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Tambah Simpanan</span>
+                            </a>
                         @endif
-                    </h5>
+                    </div>
+                    
                     <div class="card-body">
             
                         <!-- Input Pencarian -->
@@ -58,38 +63,47 @@
                             </div>
                         @endif
 
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    @if (auth()->user()->role != 'anggota')
-                                        <th>Nama Anggota</th>
-                                    @endif
-                                    <th>Jenis Simpanan</th>
-                                    <th>Jumlah</th>
-                                    <th>Status</th>
-                                    <th>Tanggal Pembayaran</th>
-                                </tr>
-                            </thead>
-                            <tbody id="savingTableBody">
-                                @foreach ($savings as $saving)
+                        <div class="table-responsive">
+                            <table class="table" style="width: 1150px;">
+                                <thead>
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <th>No</th>
                                         @if (auth()->user()->role != 'anggota')
-                                            <td>{{ $saving->user->name }}</td>
+                                            <th>Nama Anggota</th>
                                         @endif
-                                        <td>{{ $saving->jenis_simpanan }}</td>
-                                        <td>Rp{{ number_format($saving->jumlah, 2, ',', '.') }}</td>
-                                        <td>{{ $saving->status }}</td>
-                                        <td>
-                                            @if ($saving->status == 'dibayar')
-                                                {{ \Carbon\Carbon::parse($saving->updated_at)->translatedFormat('d F Y H:i') }}
-                                            @endif
-                                        </td>
+                                        <th>Jenis Simpanan</th>
+                                        <th>Jumlah</th>
+                                        <th>Status</th>
+                                        <th>Tanggal Pembayaran</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody id="savingTableBody">
+                                    @foreach ($savings as $saving)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            @if (auth()->user()->role != 'anggota')
+                                                <td>{{ $saving->user->name }}</td>
+                                            @endif
+                                            <td>{{ $saving->jenis_simpanan }}</td>
+                                            <td>Rp{{ number_format($saving->jumlah, 2, ',', '.') }}</td>
+                                            <td>
+                                                <span class="badge 
+                                                    @if($saving->status == 'dibayar') bg-label-success
+                                                    @elseif($saving->status == 'belum bayar') bg-label-warning 
+                                                    @endif">
+                                                    {{ $saving->status }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                @if ($saving->status == 'dibayar')
+                                                    {{ \Carbon\Carbon::parse($saving->updated_at)->translatedFormat('d F Y H:i') }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

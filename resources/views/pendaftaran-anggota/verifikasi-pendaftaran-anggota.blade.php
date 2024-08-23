@@ -6,8 +6,8 @@
                 <div class="card">
                     <h5 class="card-header">Permohonan Keanggotaan</h5>
                     <div class="card-body">
-                        <div class="card-datatable text-nowrap" id="both-scrollbars-example" style="height: 500px">
-                            <table class="table">
+                        <div class="table-responsive">
+                            <table class="table" style="width: 1600px;">
                                 <thead>
                                     <tr>
                                         <th>Name</th>

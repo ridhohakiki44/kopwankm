@@ -7,9 +7,9 @@
             <div class="card">
                 <h5 class="card-header">Pengajuan Pinjaman</h5>
                 <div class="card-body">
-                    <div class="card-datatable text-nowrap" id="both-scrollbars-example" style="height: 500px">
+                    <div class="table-responsive">
 
-                        <table class="table">
+                        <table class="table" style="width: 1350px;">
                             <thead>
                                 <tr>
                                     <th>Nama Anggota</th>
@@ -50,7 +50,9 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>{{ $loan->status }}</td>
+                                        <td>
+                                            <span class="badge bg-label-success">{{ $loan->status }}</span>
+                                        </td>
                                         <td>{{ $loan->keterangan }}</td>
                                         <td>
                                             <!-- Button trigger modal -->

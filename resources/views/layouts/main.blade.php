@@ -58,7 +58,6 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/bootstrap-select/bootstrap-select.css') }}" />
 
     <!-- Page CSS -->
-
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/css/pages/app-logistics-dashboard.css') }}" />
 
     <!-- Helpers -->
@@ -151,7 +150,6 @@
     <script src="{{ asset('backend/assets/js/extended-ui-sweetalert2.js') }}"></script>
     <script src="{{ asset('backend/assets/js/pages-account-settings-account.js') }}"></script>
     <script src="{{ asset('backend/assets/js/pages-account-settings-security.js') }}"></script>
-    <script src="{{ asset('backend/assets/js/extended-ui-perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('backend/assets/js/ui-modals.js') }}"></script>
     <script src="{{ asset('backend/assets/js/form-pendaftaran-anggota.js') }}"></script>
     <script src="{{ asset('backend/assets/js/form-pengajuan-pinjaman.js') }}"></script>

@@ -24,38 +24,47 @@
                         </div>
                     @endif
 
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                @if (auth()->user()->role != 'anggota')
-                                    <td>Nama Anggota</td>
-                                @endif
-                                <th>Jumlah Angsuran</th>
-                                <th>Tanggal Jatuh Tempo</th>
-                                <th>Status</th>
-                                <th>Tanggal Pembayaran</th>
-                            </tr>
-                        </thead>
-                        <tbody id="installmentTableBody">
-                            @foreach ($installments as $installment)
+                    <div class="table-responsive">
+                        <table class="table" style="width: 1150px;">
+                            <thead>
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <th>No</th>
                                     @if (auth()->user()->role != 'anggota')
-                                        <td>{{ $installment->loan->user->name }}</td>
+                                        <td>Nama Anggota</td>
                                     @endif
-                                    <td>Rp{{ number_format($installment->jumlah, 2, ',', '.') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($installment->jatuh_tempo)->translatedFormat('d F Y') }}</td>
-                                    <td>{{ $installment->status }}</td>
-                                    <td>
-                                        @if ($installment->status == 'dibayar')
-                                            {{ \Carbon\Carbon::parse($installment->updated_at)->translatedFormat('d F Y H:i') }}
-                                        @endif
-                                    </td>
+                                    <th>Jumlah Angsuran</th>
+                                    <th>Tanggal Jatuh Tempo</th>
+                                    <th>Status</th>
+                                    <th>Tanggal Pembayaran</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody id="installmentTableBody">
+                                @foreach ($installments as $installment)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        @if (auth()->user()->role != 'anggota')
+                                            <td>{{ $installment->loan->user->name }}</td>
+                                        @endif
+                                        <td>Rp{{ number_format($installment->jumlah, 2, ',', '.') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($installment->jatuh_tempo)->translatedFormat('d F Y') }}</td>
+                                        <td>
+                                            <span class="badge 
+                                                @if($installment->status == 'dibayar') bg-label-success
+                                                @elseif($installment->status == 'belum bayar') bg-label-warning 
+                                                @endif">
+                                                {{ $installment->status }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            @if ($installment->status == 'dibayar')
+                                                {{ \Carbon\Carbon::parse($installment->updated_at)->translatedFormat('d F Y H:i') }}
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
