@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-      <a href="index.html" class="app-brand-link">
+      <div class="app-brand-link">
         <span class="app-brand-logo demo">
           <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -27,8 +27,8 @@
               fill="#7367F0" />
           </svg>
         </span>
-        <span class="app-brand-text demo menu-text fw-bold">Vuexy</span>
-      </a>
+        <span class="app-brand-text demo menu-text fw-bold">Kopwan - KM</span>
+      </div>
 
       <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
         <i class="ti menu-toggle-icon d-none d-xl-block ti-sm align-middle"></i>
@@ -68,11 +68,20 @@
         </a>
       </li>
 
-      <li class="menu-item {{ request()->routeIs('payments.index') ? 'active' : '' }}">
-        <a href="{{ route('payments.index') }}" class="menu-link">
-          <i class="menu-icon tf-icons ti ti-credit-card-pay"></i>
-          <div data-i18n="Pembayaran">Pembayaran</div>
+      <li class="menu-item {{ request()->routeIs('transactions.index') ? 'active' : '' }}">
+        <a href="{{ route('transactions.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-cash"></i>
+          <div data-i18n="Transaksi">Transaksi</div>
         </a>
       </li>
+
+      @if (auth()->user()->role == 'anggota')
+        <li class="menu-item {{ request()->routeIs('payments.index') ? 'active' : '' }}">
+          <a href="{{ route('payments.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons ti ti-credit-card-pay"></i>
+            <div data-i18n="Pembayaran">Pembayaran</div>
+          </a>
+        </li>
+      @endif
     </ul>
 </aside>
