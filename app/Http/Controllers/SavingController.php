@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\loan;
 use App\Models\Saving;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -58,6 +59,24 @@ class SavingController extends Controller
         $saving->jumlah = $request->jumlah;
         $saving->status = 'dibayar';
         $saving->save();
+
+        // Ambil nama pengguna berdasarkan user_id
+        $user = User::find($request->user_id);
+        $userName = $user->name;
+
+        // Ambil saldo dari transaksi terakhir
+        $currentBalance = Transaction::latest('id')->first()->balance ?? 0;
+        
+        // Menghitung saldo berdasarkan debit
+        $balance = $currentBalance + $request->jumlah;
+
+        // Menyimpan data transaksi simpanan
+        Transaction::create([
+            'date' => now(),
+            'description' => "Diterima simpanan {$request->jenis_simpanan} anggota a/n {$userName}",
+            'debit' => $request->jumlah,
+            'balance' => $balance,
+        ]);
 
         // Redirect ke halaman sebelumnya dengan pesan sukses
         return redirect()->back()->with('status', 'Simpanan berhasil ditambahkan.');

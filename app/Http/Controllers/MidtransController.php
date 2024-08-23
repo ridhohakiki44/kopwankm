@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Installment;
 use App\Models\Saving;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Midtrans\Config;
 use Midtrans\Notification;
@@ -126,6 +127,9 @@ class MidtransController extends Controller
         
         // Bagian kedua dari $orderIdParts adalah daftar item (sid, iid)
         $itemIds = array_slice($orderIdParts, 1);
+
+        // Mendapatkan saldo awal
+        $currentBalance = $this->getLatestBalance();
         
         foreach ($itemIds as $itemId) {
             if (strpos($itemId, 's') !== false) {
@@ -134,6 +138,17 @@ class MidtransController extends Controller
                 if ($saving && $transactionStatus == 'settlement') {
                     $saving->status = 'dibayar';
                     $saving->save();
+
+                    // Menghitung saldo baru setelah transaksi simpanan
+                    $currentBalance += $saving->jumlah;
+
+                    // Menyimpan data transaksi simpanan
+                    Transaction::create([
+                        'date' => now(),
+                        'description' => "Diterima simpanan {$saving->jenis_simpanan} anggota a/n {$saving->user->name}",
+                        'debit' => $saving->jumlah,
+                        'balance' => $currentBalance,
+                    ]);
                 }
             }
 
@@ -143,6 +158,17 @@ class MidtransController extends Controller
                 if ($installment && $transactionStatus == 'settlement') {
                     $installment->status = 'dibayar';
                     $installment->save();
+
+                    // Menghitung saldo baru setelah transaksi angsuran
+                    $currentBalance += $installment->jumlah;
+
+                    // Menyimpan data transaksi angsuran
+                    Transaction::create([
+                        'date' => now(),
+                        'description' => "Diterima angsuran pinjaman anggota a/n {$installment->loan->user->name}",
+                        'debit' => $installment->jumlah,
+                        'balance' => $currentBalance,
+                    ]);
 
                     // Cek apakah semua angsuran terkait pinjaman ini sudah dibayar
                     $loan = $installment->loan; // Ambil pinjaman terkait dari angsuran
@@ -159,5 +185,12 @@ class MidtransController extends Controller
         }
 
         return response()->json(['message' => 'Callback processed successfully.']);
+    }
+
+    // Fungsi untuk mendapatkan saldo terakhir
+    private function getLatestBalance()
+    {
+        $latestTransaction = Transaction::orderBy('id', 'desc')->first();
+        return $latestTransaction ? $latestTransaction->balance : 0;
     }
 }

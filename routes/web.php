@@ -7,6 +7,7 @@ use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\PendaftaranAnggotaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SavingController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +53,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/loans', [LoanController::class, 'index'])->name('loans.index');
 
         Route::get('/installments', [InstallmentController::class, 'index'])->name('installments.index');
+
+        Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
     });
 
     // Routes for sekretaris
@@ -63,6 +66,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/savings/create-by-sekretaris', [SavingController::class, 'createBySekretaris'])->name('savings.createBySekretaris');
         Route::post('/savings/store-by-sekretaris', [SavingController::class, 'storeBySekretaris'])->name('savings.storeBySekretaris');
         Route::get('/get-wajib-savings-amount/{userId}', [SavingController::class, 'getWajibSavingsAmount']);
+
+        Route::post('/transactions/set-balance', [TransactionController::class, 'setBalance'])->name('transactions.set-balance');
+        Route::get('/transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
+        Route::post('/transactions/store', [TransactionController::class, 'store'])->name('transactions.store');
     });
     
     Route::middleware('role:ketua')->group(function () {

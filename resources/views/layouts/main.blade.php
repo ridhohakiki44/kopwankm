@@ -157,5 +157,7 @@
     <script src="{{ asset('backend/assets/js/form-pengajuan-pinjaman.js') }}"></script>
     <script src="{{ asset('backend/assets/js/form-tambah-simpanan.js') }}"></script>
     <script src="{{ asset('backend/assets/js/form-tambah-simpanan-by-sekretaris.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/form-transaction.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/form-set-balance.js') }}"></script>
   </body>
 </html>
