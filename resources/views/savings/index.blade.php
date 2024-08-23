@@ -4,42 +4,43 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-md-12">
-                @if (auth()->user()->role == 'anggota' || auth()->user()->role == 'sekretaris')
+                @if (auth()->user()->role == 'anggota')
                     <div class="card mb-4">
                         <h5 class="card-header">Tambah Simpanan</h5>
                         <div class="card-body">
-                            @if (auth()->user()->role == 'anggota')
-                                <form action="{{ route('savings.store') }}" method="POST" id="formTambahSimpanan">
-                                    @csrf
+                            <form action="{{ route('savings.store') }}" method="POST" id="formTambahSimpanan">
+                                @csrf
 
-                                    <div class="row">
-                                        <div class="mb-3 col-md-6">
-                                            <label for="jenis_simpanan" class="form-label">Jenis Simpanan</label>
-                                            <select id="jenis_simpanan" class="select2 form-select form-select-lg"
-                                                data-allow-clear="true" name="jenis_simpanan">
-                                                <option value="wajib">Simpanan Wajib</option>
-                                                <option value="sukarela">Simpanan Sukarela</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="jumlah">Jumlah</label>
-                                            <input type="number" name="jumlah" id="jumlah" class="form-control" required
-                                                min="1000">
-                                        </div>
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="jenis_simpanan" class="form-label">Jenis Simpanan</label>
+                                        <select id="jenis_simpanan" class="select2 form-select form-select-lg"
+                                            data-allow-clear="true" name="jenis_simpanan">
+                                            <option value="wajib">Simpanan Wajib</option>
+                                            <option value="sukarela">Simpanan Sukarela</option>
+                                        </select>
                                     </div>
-                                    <div class="mt-2">
-                                        <button type="submit" class="btn btn-primary">Tambah</button>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="jumlah">Jumlah</label>
+                                        <input type="number" name="jumlah" id="jumlah" class="form-control" required
+                                            min="1000">
                                     </div>
-                                </form>
-                            @elseif (auth()->user()->role == 'sekretaris')
-                                <a href="{{ route('savings.createBySekretaris') }}" class="btn btn-primary">Tambah</a>
-                            @endif
+                                </div>
+                                <div class="mt-2">
+                                    <button type="submit" class="btn btn-primary">Tambah</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 @endif
 
                 <div class="card">
-                    <h5 class="card-header">Daftar Simpanan</h5>
+                    <h5 class="card-header d-flex justify-content-between align-items-center">
+                        Daftar Simpanan
+                        @if (auth()->user()->role == 'sekretaris')
+                            <a href="{{ route('savings.createBySekretaris') }}" class="btn btn-primary">Tambah Simpanan</a>
+                        @endif
+                    </h5>
                     <div class="card-body">
             
                         <!-- Input Pencarian -->
