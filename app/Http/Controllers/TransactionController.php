@@ -114,4 +114,44 @@ class TransactionController extends Controller
 
         return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil diperbarui.');
     }
+
+    public function print(Request $request)
+    {
+        // Validasi rentang tanggal
+        $request->validate([
+            'date_range' => 'required',
+        ]);
+
+        // Pecah rentang tanggal menjadi dua bagian
+        $dates = explode(' to ', $request->date_range);
+
+        // Array untuk mengonversi bulan dari Indonesia ke Inggris
+        $bulanIndoToEnglish = [
+            'Januari' => 'January',
+            'Februari' => 'February',
+            'Maret' => 'March',
+            'April' => 'April',
+            'Mei' => 'May',
+            'Juni' => 'June',
+            'Juli' => 'July',
+            'Agustus' => 'August',
+            'September' => 'September',
+            'Oktober' => 'October',
+            'November' => 'November',
+            'Desember' => 'December',
+        ];
+
+        // Konversi nama bulan ke bahasa Inggris
+        $startDateStr = str_replace(array_keys($bulanIndoToEnglish), array_values($bulanIndoToEnglish), $dates[0]);
+        $endDateStr = str_replace(array_keys($bulanIndoToEnglish), array_values($bulanIndoToEnglish), $dates[1]);
+
+        // Konversi ke format Y-m-d untuk query
+        $startDate = \Carbon\Carbon::createFromFormat('d F Y', $startDateStr)->format('Y-m-d');
+        $endDate = \Carbon\Carbon::createFromFormat('d F Y', $endDateStr)->format('Y-m-d');
+
+        // Ambil data transaksi berdasarkan rentang tanggal
+        $transactions = Transaction::whereBetween('date', [$startDate, $endDate])->get();
+
+        return view('transactions.print', compact('transactions', 'startDate', 'endDate'));
+    }
 }

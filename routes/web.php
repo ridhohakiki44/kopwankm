@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/installments', [InstallmentController::class, 'index'])->name('installments.index');
 
         Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+        Route::post('/transactions/print', [TransactionController::class, 'print'])->name('transactions.print');
     });
 
     // Routes for sekretaris
