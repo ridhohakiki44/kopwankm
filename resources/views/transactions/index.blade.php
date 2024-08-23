@@ -9,9 +9,11 @@
                     <h5 class="mb-3 mb-md-0">Riwayat Transaksi</h5>
 
                     @if ($transactions->isEmpty())
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#setBalanceModal">
-                            Set Balance
-                        </button>
+                        @if (auth()->user()->role == 'sekretaris')
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#setBalanceModal">
+                                Set Balance
+                            </button>
+                        @endif
                     @else
                         <div class="d-flex flex-column flex-md-row">
                             <div class="button-wrapper">
@@ -20,10 +22,12 @@
                                     <span class="d-none d-sm-block">Cetak Laporan</span>
                                 </button>
     
-                                <a href="{{ route('transactions.create') }}" class="btn btn-primary">
-                                    <i class="ti ti-plus d-block d-sm-none"></i>
-                                    <span class="d-none d-sm-block">Tambah Transaksi</span>
-                                </a>
+                                @if (auth()->user()->role == 'sekretaris')
+                                    <a href="{{ route('transactions.create') }}" class="btn btn-primary">
+                                        <i class="ti ti-plus d-block d-sm-none"></i>
+                                        <span class="d-none d-sm-block">Tambah Transaksi</span>
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     @endif
