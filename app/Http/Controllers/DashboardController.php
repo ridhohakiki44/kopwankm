@@ -13,9 +13,10 @@ class DashboardController extends Controller
     public function dashboard(): View
     {
         $permohonanKeanggotaanCount = User::where('status_pk', 'mengajukan')->count();
+        $anggotaCount = User::where('role', 'anggota')->count();
         $pengajuanPinjamanCount = loan::where('status', 'mengajukan')->count();
         $menungguPencairanDanaCount = loan::where('status', 'disetujui')->count();
-        return view('dashboard', compact('permohonanKeanggotaanCount', 'pengajuanPinjamanCount', 'menungguPencairanDanaCount'));
+        return view('dashboard', compact('permohonanKeanggotaanCount', 'pengajuanPinjamanCount', 'menungguPencairanDanaCount', 'anggotaCount'));
     }
 
     // dashboard user tanpa role
