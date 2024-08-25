@@ -8,6 +8,7 @@ use App\Http\Controllers\PendaftaranAnggotaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SavingController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,6 +54,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/loans', [LoanController::class, 'index'])->name('loans.index');
 
         Route::get('/installments', [InstallmentController::class, 'index'])->name('installments.index');
+
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
         Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
         Route::post('/transactions/print', [TransactionController::class, 'print'])->name('transactions.print');
