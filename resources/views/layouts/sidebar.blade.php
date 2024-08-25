@@ -47,6 +47,15 @@
         </a>
       </li>
      
+      @if (auth()->user()->role != 'anggota')
+        <li class="menu-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
+          <a href="{{ route('users.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons ti ti-users"></i>
+            <div data-i18n="Anggota">Anggota</div>
+          </a>
+        </li>
+      @endif
+
       <li class="menu-item {{ request()->routeIs('savings.index') ? 'active' : '' }}">
         <a href="{{ route('savings.index') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-credit-card"></i>
@@ -68,13 +77,6 @@
         </a>
       </li>
 
-      <li class="menu-item {{ request()->routeIs('transactions.index') ? 'active' : '' }}">
-        <a href="{{ route('transactions.index') }}" class="menu-link">
-          <i class="menu-icon tf-icons ti ti-cash"></i>
-          <div data-i18n="Transaksi">Transaksi</div>
-        </a>
-      </li>
-
       @if (auth()->user()->role == 'anggota')
         <li class="menu-item {{ request()->routeIs('payments.index') ? 'active' : '' }}">
           <a href="{{ route('payments.index') }}" class="menu-link">
@@ -83,5 +85,12 @@
           </a>
         </li>
       @endif
+
+      <li class="menu-item {{ request()->routeIs('transactions.index') ? 'active' : '' }}">
+        <a href="{{ route('transactions.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-report"></i>
+          <div data-i18n="Laporan">Laporan</div>
+        </a>
+      </li>
     </ul>
 </aside>
