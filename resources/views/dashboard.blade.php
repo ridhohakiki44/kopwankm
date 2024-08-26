@@ -2,7 +2,6 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
 
-        <!-- Card Border Shadow -->
         <div class="row">
             <div class="col-sm-6 col-lg-3 mb-4">
                 <a href="{{ route('verifikasi-pendaftaran') }}">
@@ -68,7 +67,39 @@
                 </a>
             </div>
         </div>
-        <!--/ Card Border Shadow -->
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Aturan Simpanan</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Simpanan wajib dilakukan setiap bulan sejumlah Rp20.000.</li>
+                            <li>Untuk peminjam dengan jumlah besar atau sama dengan Rp10.000.000, maka simpanan wajib Rp50.000.</li>
+                            <li>Untuk peminjam dengan jumlah besar atau sama dengan Rp50.000.000, maka simpanan wajib Rp100.000.</li>
+                            <li>Anggota juga dapat melakukan simpanan sukarela</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Aturan Pinjaman</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Pinjaman hanya diberikan kepada anggota aktif yang telah menyimpan minimal 2 tahun.</li>
+                            <li>Suku bunga pinjaman sebesar 1% per bulan.</li>
+                            <li>Jangka waktu pinjaman ditentukan oleh anggota ketika pengajuan.</li>
+                            <li>Permohonan pinjaman harus disertai jaminan yang setara dengan jumlah pinjaman.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 @endsection
