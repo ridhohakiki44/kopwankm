@@ -13,7 +13,7 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label for="user_id" class="form-label">Nama Anggota</label>
-                                            <select id="user_id" name="user_id" class="select2 form-select form-select-lg" data-allow-clear="true">
+                                            <select id="user_id" name="user_id[]" class="select2 form-select" multiple>
                                                 @foreach($users as $user)
                                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                 @endforeach
@@ -28,9 +28,16 @@
                                             </select>
                                         </div>
                                         <div class="mb-3 col-md-6">
+                                            <label for="status" class="form-label">Status</label>
+                                            <select id="status" class="select2 form-select form-select-lg"
+                                                data-allow-clear="true" name="status">
+                                                <option value="belum bayar">Belum Bayar</option>
+                                                <option value="dibayar">Dibayar</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 col-md-6" id="jumlahWrapper">
                                             <label class="form-label" for="jumlah">Jumlah</label>
-                                            <input type="number" name="jumlah" id="jumlah" class="form-control" required
-                                                min="1000">
+                                            <input type="number" name="jumlah" id="jumlah" class="form-control">
                                         </div>
                                     </div>
                                     <div class="mt-2">

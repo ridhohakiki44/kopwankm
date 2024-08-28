@@ -47,38 +47,66 @@ class SavingController extends Controller
     {
         // Validasi input
         $request->validate([
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'required|array|min:1', // Pastikan user_id adalah array dan memiliki setidaknya satu elemen
+            'user_id.*' => 'exists:users,id',    // Setiap elemen dalam array user_id harus ada di tabel users
             'jenis_simpanan' => 'required|string',
-            'jumlah' => 'required|numeric|min:1000',
+            'jumlah' => 'nullable|numeric', // Jumlah hanya perlu ada untuk jenis simpanan sukarela
+            'status' => 'required|string'
         ]);
-
-        // Buat simpanan baru
-        $saving = new Saving();
-        $saving->user_id = $request->user_id;
-        $saving->jenis_simpanan = $request->jenis_simpanan;
-        $saving->jumlah = $request->jumlah;
-        $saving->status = 'dibayar';
-        $saving->save();
-
-        // Ambil nama pengguna berdasarkan user_id
-        $user = User::find($request->user_id);
-        $userName = $user->name;
-
-        // Ambil saldo dari transaksi terakhir
-        $currentBalance = Transaction::latest('id')->first()->balance ?? 0;
         
-        // Menghitung saldo berdasarkan debit
-        $balance = $currentBalance + $request->jumlah;
+        $userIds = $request->user_id;
+        $jenisSimpanan = $request->jenis_simpanan;
+        $status = $request->status;
 
-        // Menyimpan data transaksi simpanan
-        Transaction::create([
-            'date' => now(),
-            'description' => "Diterima simpanan {$request->jenis_simpanan} anggota a/n {$userName}",
-            'debit' => $request->jumlah,
-            'balance' => $balance,
-        ]);
+        foreach ($userIds as $userId) {
+            $jumlah = 0;
+    
+            if ($jenisSimpanan === 'wajib') {
+                $loan = Loan::where('user_id', $userId)
+                            ->where('status', 'belum lunas')
+                            ->first();
+    
+                $jumlah = 20000; // Default untuk tidak punya pinjaman atau sudah lunas
+    
+                if ($loan) {
+                    if ($loan->jumlah >= 50000000) {
+                        $jumlah = 100000;
+                    } elseif ($loan->jumlah >= 10000000) {
+                        $jumlah = 50000;
+                    }
+                }
+            } else {
+                $jumlah = $request->jumlah;
+            }
+    
+            Saving::create([
+                'user_id' => $userId,
+                'jenis_simpanan' => $jenisSimpanan,
+                'jumlah' => $jumlah,
+                'status' => $status,
+            ]);
+            
+            if ($status === 'dibayar') {
+                // Ambil nama pengguna berdasarkan user_id
+                $user = User::find($userId);
+                $userName = $user->name;
+        
+                // Ambil saldo dari transaksi terakhir
+                $currentBalance = Transaction::latest('id')->first()->balance ?? 0;
+                
+                // Menghitung saldo berdasarkan debit
+                $currentBalance += $jumlah;
+        
+                // Menyimpan data transaksi simpanan
+                Transaction::create([
+                    'date' => now(),
+                    'description' => "Diterima simpanan {$jenisSimpanan} anggota a/n {$userName}",
+                    'debit' => $jumlah,
+                    'balance' => $currentBalance,
+                ]);
+            }
+        }
 
-        // Redirect ke halaman sebelumnya dengan pesan sukses
         return redirect()->back()->with('status', 'Simpanan berhasil ditambahkan.');
     }
 

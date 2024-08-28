@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
   (function () {
     const formTambahSimpananBySekretaris = document.getElementById('formTambahSimpananBySekretaris'),
       select2jenis = jQuery(formTambahSimpananBySekretaris.querySelector('[name="jenis_simpanan"]')),
-      select2user = jQuery(formTambahSimpananBySekretaris.querySelector('[name="user_id"]')); // Assuming 'user_id' is the name attribute for anggota dropdown
+      select2status = jQuery(formTambahSimpananBySekretaris.querySelector('[name="status"]')),
+      select2user = jQuery(formTambahSimpananBySekretaris.querySelector('[name="user_id[]"]')); // Assuming 'user_id' is the name attribute for anggota dropdown
 
     const fv = FormValidation.formValidation(formTambahSimpananBySekretaris, {
       fields: {
@@ -28,7 +29,14 @@ document.addEventListener('DOMContentLoaded', function (e) {
             }
           }
         },
-        user_id: {
+        status: {
+          validators: {
+            notEmpty: {
+              message: 'Please select a status'
+            }
+          }
+        },
+        'user_id[]': {
           validators: {
             notEmpty: {
               message: 'Please select a member'
@@ -66,44 +74,46 @@ document.addEventListener('DOMContentLoaded', function (e) {
         .on('change', function () {
           fv.revalidateField('jenis_simpanan');
 
-          const userId = select2user.val(); // Get selected anggota ID
-
-          // Mengambil jumlah simpanan wajib
-          if (this.value === 'wajib') {
-            fetch(`/get-wajib-savings-amount/${userId}`)
-              .then(response => response.json())
-              .then(data => {
-                document.getElementById('jumlah').value = data.jumlah;
-                document.getElementById('jumlah').setAttribute('readonly', true);
-              });
+          if (select2jenis.val() === 'wajib') {
+              // Sembunyikan field jumlah jika jenis simpanan adalah wajib
+              document.getElementById('jumlahWrapper').style.display = 'none';
+              document.getElementById('jumlah').value = 0;
           } else {
-            document.getElementById('jumlah').value = '';
-            document.getElementById('jumlah').removeAttribute('readonly');
+              // Tampilkan field jumlah jika jenis simpanan adalah sukarela
+              document.getElementById('jumlahWrapper').style.display = 'block';
+              document.getElementById('jumlah').value = '';
           }
         });
 
-      // Mengambil jumlah simpanan wajib ketika laman pertama kali diload
+      // Saat laman pertama kali diload, cek jenis simpanan
       if (select2jenis.val() === 'wajib') {
-        const userId = select2user.val(); // Get selected anggota ID
-        fetch(`/get-wajib-savings-amount/${userId}`)
-          .then(response => response.json())
-          .then(data => {
-            document.getElementById('jumlah').value = data.jumlah;
-            document.getElementById('jumlah').setAttribute('readonly', true);
-          });
+        document.getElementById('jumlahWrapper').style.display = 'none';
+        document.getElementById('jumlah').value = 0;
+      } else {
+        document.getElementById('jumlahWrapper').style.display = 'block';
+        document.getElementById('jumlah').value = '';
       }
     }
 
-    // Select2 for Anggota dropdown
+    // Select2 for Anggota
     if (select2user.length) {
       select2user.wrap('<div class="position-relative"></div>');
       select2user.select2({
         placeholder: 'Pilih Anggota',
         dropdownParent: select2user.parent()
       }).on('change', function () {
-        fv.revalidateField('user_id');
-        // Re-trigger the change event on jenis_simpanan to recalculate the amount
-        select2jenis.trigger('change');
+        fv.revalidateField('user_id[]');
+      });
+    }
+
+    // Select2 for Status
+    if (select2status.length) {
+      select2status.wrap('<div class="position-relative"></div>');
+      select2status.select2({
+        placeholder: 'Pilih Status',
+        dropdownParent: select2status.parent()
+      }).on('change', function () {
+        fv.revalidateField('status');
       });
     }
   })();
