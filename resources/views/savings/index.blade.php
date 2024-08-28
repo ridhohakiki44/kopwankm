@@ -6,18 +6,18 @@
             <div class="col-md-12">
                 @if (auth()->user()->role == 'anggota')
                     <div class="card mb-4">
-                        <h5 class="card-header">Tambah Simpanan</h5>
+                        <h5 class="card-header">Tambah Simpanan Sukarela</h5>
                         <div class="card-body">
                             <form action="{{ route('savings.store') }}" method="POST" id="formTambahSimpanan">
                                 @csrf
 
                                 <div class="row">
-                                    <div class="mb-3 col-md-6">
+                                    <div class="mb-3 col-md-6" hidden>
                                         <label for="jenis_simpanan" class="form-label">Jenis Simpanan</label>
                                         <select id="jenis_simpanan" class="select2 form-select form-select-lg"
                                             data-allow-clear="true" name="jenis_simpanan">
-                                            <option value="wajib">Simpanan Wajib</option>
                                             <option value="sukarela">Simpanan Sukarela</option>
+                                            <option value="wajib">Simpanan Wajib</option>
                                         </select>
                                     </div>
                                     <div class="mb-3 col-md-6">
