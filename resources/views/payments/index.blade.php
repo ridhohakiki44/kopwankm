@@ -14,28 +14,64 @@
                         @if ($savings->isEmpty())
                             <p>Tidak ada simpanan yang belum dibayar.</p>
                         @else
-                            @foreach ($savings as $saving)
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="savings[]" value="{{ $saving->id }}">
-                                    <label class="form-check-label">
-                                       Simpanan {{ $saving->jenis_simpanan }} - Rp{{ number_format($saving->jumlah, 2, ',', '.') }}
-                                    </label>
-                                </div>
-                            @endforeach
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Pilih</th>
+                                        <th>Jenis Simpanan</th>
+                                        <th>Jumlah</th>
+                                        <th>Denda</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($savings as $saving)
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" name="savings[]" value="{{ $saving->id }}">
+                                            </td>
+                                            <td>Simpanan {{ ucfirst($saving->jenis_simpanan) }}</td>
+                                            <td>Rp{{ number_format($saving->jumlah, 2, ',', '.') }}</td>
+                                            <td>
+                                                @if ($saving->denda != null)
+                                                    Rp{{ number_format($saving->denda, 2, ',', '.') }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         @endif
 
                         <h6 class="mt-4">Pilih Angsuran yang Akan Dibayar:</h6>
                         @if ($installments->isEmpty())
                             <p>Angsuran bulan ini sudah dibayar.</p>
                         @else
-                            @foreach ($installments as $installment)
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="installments[]" value="{{ $installment->id }}">
-                                    <label class="form-check-label">
-                                        Pinjaman ID {{ $installment->loan_id }} - Rp{{ number_format($installment->jumlah, 2, ',', '.') }} - Jatuh Tempo: {{ \Carbon\Carbon::parse($installment->jatuh_tempo)->translatedFormat('d F Y') }}
-                                    </label>
-                                </div>
-                            @endforeach
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Pilih</th>
+                                        <th>Jumlah</th>
+                                        <th>Jatuh Tempo</th>
+                                        <th>Denda</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($installments as $installment)
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" name="installments[]" value="{{ $installment->id }}">
+                                            </td>
+                                            <td>Rp{{ number_format($installment->jumlah, 2, ',', '.') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($installment->jatuh_tempo)->translatedFormat('d F Y') }}</td>
+                                            <td>
+                                                @if ($installment->denda != null)
+                                                    Rp{{ number_format($installment->denda, 2, ',', '.') }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         @endif
 
                         <div class="mt-4">

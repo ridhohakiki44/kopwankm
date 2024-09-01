@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('jenis_simpanan'); // pokok, wajib, sukarela
             $table->decimal('jumlah', 15, 2);
+            $table->decimal('denda', 15, 2)->nullable();
             $table->string('status')->default('belum bayar'); // belum bayar, dibayar
             $table->timestamps();
         });

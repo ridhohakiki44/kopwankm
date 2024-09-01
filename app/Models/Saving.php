@@ -13,6 +13,7 @@ class Saving extends Model
         'user_id',
         'jenis_simpanan',
         'jumlah',
+        'denda',
         'status',
     ];
 

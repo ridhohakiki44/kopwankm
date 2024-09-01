@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Installment;
 use App\Models\Saving;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Midtrans\Config;
 use Midtrans\Notification;
@@ -42,7 +43,29 @@ class MidtransController extends Controller
                             })
                             ->get();
 
-        return view('payments.index', compact('savings', 'installments'));
+        $savingLateFee = null;
+        foreach ($savings as $saving) {
+            if ($saving->jenis_simpanan === 'wajib') {
+                $savingPaymentDate = Carbon::now();
+                $savingDueDate = Carbon::parse($saving->created_at);
+            
+                $savingLateFee = $this->calculateLateFee($savingDueDate, $savingPaymentDate);
+                $saving->denda = $savingLateFee;
+                $saving->save();
+            }
+        }
+        
+        $installmentLateFee = null;
+        foreach ($installments as $installment) {
+            $installmentPaymentDate = Carbon::now();
+            $installmentDueDate = Carbon::parse($installment->jatuh_tempo);
+        
+            $installmentLateFee = $this->calculateLateFee($installmentDueDate, $installmentPaymentDate);
+            $installment->denda = $installmentLateFee;
+            $installment->save();
+        }
+
+        return view('payments.index', compact('savings', 'installments', 'savingLateFee', 'installmentLateFee'));
     }
 
     public function processPayment(Request $request)
@@ -67,23 +90,27 @@ class MidtransController extends Controller
             return redirect()->route('payments.index')->withErrors('Tidak ada data yang dipilih untuk dibayar.');
         }
 
-        // Hitung total pembayaran
-        $totalAmount = $savings->sum('jumlah') + $installments->sum('jumlah');
+        // Hitung total pembayaran termasuk denda
+        $totalAmount = $savings->sum(function($saving) {
+            return $saving->jumlah + $saving->denda;
+        }) + $installments->sum(function($installment) {
+            return $installment->jumlah + $installment->denda;
+        });
 
         // Menyiapkan item details
         $itemDetails = collect($savings)->map(function($saving) {
             return [
                 'id' => 'saving-'.$saving->id,
-                'price' => $saving->jumlah,
+                'price' => $saving->jumlah + $saving->denda,
                 'quantity' => 1,
                 'name' => 'Simpanan '.$saving->jenis_simpanan,
             ];
         })->merge($installments->map(function($installment) {
             return [
                 'id' => 'installment-'.$installment->id,
-                'price' => $installment->jumlah,
+                'price' => $installment->jumlah + $installment->denda,
                 'quantity' => 1,
-                'name' => 'Angsuran Pinjaman ID '.$installment->loan_id,
+                'name' => 'Angsuran Pinjaman',
             ];
         }))->toArray();
 
@@ -140,13 +167,13 @@ class MidtransController extends Controller
                     $saving->save();
 
                     // Menghitung saldo baru setelah transaksi simpanan
-                    $currentBalance += $saving->jumlah;
+                    $currentBalance += $saving->jumlah + $saving->denda;
 
                     // Menyimpan data transaksi simpanan
                     Transaction::create([
                         'date' => now(),
                         'description' => "Diterima simpanan {$saving->jenis_simpanan} anggota a/n {$saving->user->name}",
-                        'debit' => $saving->jumlah,
+                        'debit' => $saving->jumlah + $saving->denda,
                         'balance' => $currentBalance,
                     ]);
                 }
@@ -160,13 +187,13 @@ class MidtransController extends Controller
                     $installment->save();
 
                     // Menghitung saldo baru setelah transaksi angsuran
-                    $currentBalance += $installment->jumlah;
+                    $currentBalance += $installment->jumlah + $installment->denda;
 
                     // Menyimpan data transaksi angsuran
                     Transaction::create([
                         'date' => now(),
                         'description' => "Diterima angsuran pinjaman anggota a/n {$installment->loan->user->name}",
-                        'debit' => $installment->jumlah,
+                        'debit' => $installment->jumlah + $installment->denda,
                         'balance' => $currentBalance,
                     ]);
 
@@ -192,5 +219,17 @@ class MidtransController extends Controller
     {
         $latestTransaction = Transaction::orderBy('id', 'desc')->first();
         return $latestTransaction ? $latestTransaction->balance : 0;
+    }
+
+    public function calculateLateFee($dueDate, $paymentDate)
+    {
+        $lateFee = null;
+        $daysLate = $paymentDate->diffInDays($dueDate);
+
+        if ($daysLate > 0) {
+            $lateFee = $daysLate * 1000;
+        }
+
+        return $lateFee;
     }
 }
