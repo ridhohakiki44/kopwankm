@@ -84,14 +84,14 @@
                                             @if (auth()->user()->role != 'anggota')
                                                 <td>{{ $saving->user->name }}</td>
                                             @endif
-                                            <td>{{ $saving->jenis_simpanan }}</td>
+                                            <td>Simpanan {{ ucfirst($saving->jenis_simpanan) }}</td>
                                             <td>Rp{{ number_format($saving->jumlah, 2, ',', '.') }}</td>
                                             <td>
                                                 <span class="badge 
                                                     @if($saving->status == 'dibayar') bg-label-success
                                                     @elseif($saving->status == 'belum bayar') bg-label-warning 
                                                     @endif">
-                                                    {{ $saving->status }}
+                                                    {{ ucfirst($saving->status) }}
                                                 </span>
                                             </td>
                                             <td>

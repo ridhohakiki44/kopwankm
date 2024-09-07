@@ -85,7 +85,7 @@
                                                         @elseif($loan->status == 'belum lunas') bg-label-warning 
                                                         @elseif($loan->status == 'lunas') bg-label-success 
                                                         @endif">
-                                                        {{ $loan->status }}
+                                                        {{ ucfirst($loan->status) }}
                                                     </span>
                                                 </td>
                                                 <td>{{ $loan->keterangan }}</td>

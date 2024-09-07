@@ -55,7 +55,7 @@
                                                     @if($installment->status == 'dibayar') bg-label-success
                                                     @elseif($installment->status == 'belum bayar') bg-label-warning 
                                                     @endif">
-                                                    {{ $installment->status }}
+                                                    {{ ucfirst($installment->status) }}
                                                 </span>
                                             </td>
                                             <td>
