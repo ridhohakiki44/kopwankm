@@ -23,8 +23,10 @@
                                     <select id="bank" class="select2 form-select form-select-lg"
                                         data-allow-clear="true" name="bank">
                                         <option value="BRI">BRI</option>
+                                        <option value="BCA">BCA</option>
                                         <option value="BNI">BNI</option>
                                         <option value="BTN">BTN</option>
+                                        <option value="NAGARI">NAGARI</option>
                                         <option value="MANDIRI">MANDIRI</option>
                                     </select>
                                 </div>
