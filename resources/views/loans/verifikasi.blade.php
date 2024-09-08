@@ -50,7 +50,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <span class="badge bg-label-primary">{{ $loan->status }}</span>
+                                            <span class="badge bg-label-primary">{{ ucfirst($loan->status) }}</span>
                                         </td>
                                         <td>{{ $loan->keterangan }}</td>
                                         <td>
@@ -77,10 +77,13 @@
                                                             <div class="modal-body">
                                                                 <div class="row">
                                                                     <div class="col mb-3">
-                                                                        <label for="keterangan"
-                                                                            class="form-label">Keterangan</label>
-                                                                        <input type="text" id="keterangan" name="keterangan"
-                                                                            class="form-control" placeholder="Masukan keterangan" />
+                                                                        <label for="keterangan" class="form-label">Keterangan</label>
+                                                                        <select id="keterangan" class="select2 form-select form-select-lg"
+                                                                                data-allow-clear="true" name="keterangan">
+                                                                            <option value="Tunggu pencairan dana">Tunggu pencairan dana</option>
+                                                                            <option value="Jaminan pinjaman tidak terlihat jelas">Jaminan pinjaman tidak terlihat jelas</option>
+                                                                            <option value="Jangka waktu yang dipilih terlalu lama">Jangka waktu yang dipilih terlalu lama</option>
+                                                                        </select>
                                                                     </div>
                                                                 </div>
                                                             </div>

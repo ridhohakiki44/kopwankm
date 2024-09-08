@@ -51,7 +51,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <span class="badge bg-label-success">{{ $loan->status }}</span>
+                                            <span class="badge bg-label-success">{{ ucfirst($loan->status) }}</span>
                                         </td>
                                         <td>{{ $loan->keterangan }}</td>
                                         <td>
@@ -81,7 +81,7 @@
                                                                         <label for="keterangan"
                                                                             class="form-label">Keterangan</label>
                                                                         <input type="text" id="keterangan" name="keterangan"
-                                                                            class="form-control" placeholder="Masukan keterangan" />
+                                                                            class="form-control" placeholder="Masukan keterangan" value="Dana sudah dikirim" readonly />
                                                                     </div>
                                                                 </div>
                                                             </div>

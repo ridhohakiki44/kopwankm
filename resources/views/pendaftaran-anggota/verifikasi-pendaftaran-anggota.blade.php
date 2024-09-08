@@ -65,7 +65,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <span class="badge bg-label-primary">{{ $pengajuan->status_pk }}</span>
+                                            <span class="badge bg-label-primary">{{ ucfirst($pengajuan->status_pk) }}</span>
                                         </td>
                                         <td>
                                             <div class="d-flex">
