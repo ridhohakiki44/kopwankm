@@ -13,49 +13,39 @@ document.addEventListener('DOMContentLoaded', function (e) {
         jumlah: {
           validators: {
             notEmpty: {
-              message: 'Please enter the loan amount'
-            },
-            numeric: {
-              message: 'The value is not a valid number'
+              message: 'Masukan jumlah pinjaman'
             }
           }
         },
         jangka_waktu: {
           validators: {
             notEmpty: {
-              message: 'Please enter the loan term in months'
-            },
-            numeric: {
-              message: 'The value is not a valid number'
+              message: 'Masukan jangka waktu'
             }
           }
         },
         bank: {
           validators: {
             notEmpty: {
-              message: 'Please select a bank'
+              message: 'Pilih bank'
             }
           }
         },
         no_rek: {
           validators: {
             notEmpty: {
-              message: 'Please enter your bank account number'
-            },
-            regexp: {
-              regexp: /^[0-9]+$/,
-              message: 'The bank account number can only consist of numbers'
+              message: 'Masukan nomor rekening'
             }
           }
         },
         jaminan: {
           validators: {
             notEmpty: {
-              message: 'Please upload your collateral'
+              message: 'Upload jaminan pinjaman'
             },
             file: {
               maxSize: 2048 * 1024, // 2 MB
-              message: 'The collateral file must not be larger than 2048 KB'
+              message: 'Jaminan tidak boleh lebih dari 2048 KB / 2 MB'
             }
           }
         }
@@ -79,12 +69,23 @@ document.addEventListener('DOMContentLoaded', function (e) {
       }
     });
 
+    // Hanya memperbolehkan angka di input pada jumlah dan no_rek
+    const hanyaAngka = function(evt) {
+      let charCode = (evt.which) ? evt.which : evt.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        evt.preventDefault();
+      }
+    };
+
+    formPengajuanPinjaman.querySelector('[name="jumlah"]').addEventListener('keypress', hanyaAngka);
+    formPengajuanPinjaman.querySelector('[name="no_rek"]').addEventListener('keypress', hanyaAngka);
+
     // Select2
     if (select2Bank.length) {
       select2Bank.wrap('<div class="position-relative"></div>');
       select2Bank
         .select2({
-          placeholder: 'Select a bank',
+          placeholder: 'Pilih bank',
           dropdownParent: select2Bank.parent()
         })
         .on('change', function () {

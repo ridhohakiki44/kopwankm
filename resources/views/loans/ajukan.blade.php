@@ -26,8 +26,8 @@
                                         <option value="BCA">BCA</option>
                                         <option value="BNI">BNI</option>
                                         <option value="BTN">BTN</option>
-                                        <option value="NAGARI">NAGARI</option>
-                                        <option value="MANDIRI">MANDIRI</option>
+                                        <option value="BANK NAGARI">BANK NAGARI</option>
+                                        <option value="BANK MANDIRI">BANK MANDIRI</option>
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
