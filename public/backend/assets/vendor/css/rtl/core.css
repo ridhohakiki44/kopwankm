@@ -26132,3 +26132,13 @@ a.bg-vimeo:hover, a.bg-vimeo:focus {
 .footer.bg-lighter hr {
   border-color: rgba(93, 89, 108, 0.0760954902);
 }
+
+.zoomable {
+  transition: transform 0.25s ease;
+  cursor: zoom-in;
+}
+
+.zoomed {
+  transform: scale(2); /* Atur nilai scale sesuai keinginan */
+  cursor: zoom-out;
+}

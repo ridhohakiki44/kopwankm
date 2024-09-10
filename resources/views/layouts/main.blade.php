@@ -158,5 +158,6 @@
     <script src="{{ asset('backend/assets/js/form-transaction.js') }}"></script>
     <script src="{{ asset('backend/assets/js/form-set-balance.js') }}"></script>
     <script src="{{ asset('backend/assets/js/form-keterangan.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/zoom.js') }}"></script>
   </body>
 </html>
