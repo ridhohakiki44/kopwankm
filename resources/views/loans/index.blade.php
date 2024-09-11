@@ -71,7 +71,7 @@
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-body">
-                                                                    <img id="modalImage" src="{{ asset('storage/' . $loan->jaminan) }}" class="img-fluid">
+                                                                    <img id="modalImage" src="{{ asset('storage/' . $loan->jaminan) }}" class="img-fluid zoomable">
                                                                 </div>
                                                             </div>
                                                         </div>

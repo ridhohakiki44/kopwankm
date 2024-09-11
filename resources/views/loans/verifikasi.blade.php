@@ -43,7 +43,7 @@
                                                         <div class="modal-body">
                                                             <img id="modalImage"
                                                                 src="{{ asset('storage/' . $loan->jaminan) }}"
-                                                                class="img-fluid">
+                                                                class="img-fluid zoomable">
                                                         </div>
                                                     </div>
                                                 </div>
