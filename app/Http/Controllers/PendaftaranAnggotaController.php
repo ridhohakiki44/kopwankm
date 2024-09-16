@@ -26,7 +26,6 @@ class PendaftaranAnggotaController extends Controller
             'alamat' => 'nullable|string|max:255',
             'nomor_telepon' => 'nullable|string|max:15',
             'tanggal_lahir' => 'nullable|date',
-            'pekerjaan' => 'nullable|string|max:255',
             'penghasilan' => 'nullable|string|max:255',
             'ktp' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'kartu_keluarga' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -51,10 +50,17 @@ class PendaftaranAnggotaController extends Controller
             $kartuKeluargaPath = $request->file('kartu_keluarga')->store('kartu_keluarga', 'public');
             $validatedData['kartu_keluarga'] = $kartuKeluargaPath;
         }
-        // dd($validatedData);
+
+        $pekerjaan = '';
+        if($request->pekerjaan_lainnya != 'none') {
+            $pekerjaan = $request->pekerjaan_lainnya;
+        } else {
+            $pekerjaan = $request->pekerjaan;
+        }
 
         $user->fill($validatedData);
         $user->status_pk = 'mengajukan';
+        $user->pekerjaan = $pekerjaan;
         $user->save();
 
         return Redirect::route('welcome')->with('status', 'Pendaftaran anggota berhasil diajukan.');

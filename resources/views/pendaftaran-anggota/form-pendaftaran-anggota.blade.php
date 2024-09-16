@@ -17,32 +17,60 @@
 
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="nik">NIK</label>
-                                <input class="form-control" type="text" id="nik" name="nik" value=""
-                                    placeholder="NIK" />
+                                <input class="form-control" type="text" id="nik" name="nik" placeholder="NIK" maxlength="16" />
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="alamat" class="form-label">Alamat</label>
-                                <input class="form-control" type="text" id="alamat" name="alamat" value=""
-                                    placeholder="Alamat" />
+                                <select id="alamat" class="select2 form-select form-select-lg"
+                                    data-allow-clear="true" name="alamat">
+                                    <option value="Bunga Tanjung">Bunga Tanjung</option>
+                                    <option value="Kampung Padang Selatan">Kampung Padang Selatan</option>
+                                    <option value="Kampung Padang Utara">Kampung Padang Utara</option>
+                                    <option value="Pasar Baru Barat">Pasar Baru Barat</option>
+                                    <option value="Pasar Baru Timur">Pasar Baru Timur</option>
+                                    <option value="Pasar Baru Utara">Pasar Baru Utara</option>
+                                    <option value="Pasar Dua Suak">Pasar Dua Suak</option>
+                                    <option value="Pasar Muara">Pasar Muara</option>
+                                    <option value="Pasar Pokan">Pasar Pokan</option>
+                                    <option value="Pasar Satu">Pasar Satu</option>
+                                    <option value="Pigogah Patibubur">Pigogah Patibubur</option>
+                                    <option value="Pulau Panjang">Pulau Panjang</option>
+                                    <option value="Silawai Tengah">Silawai Tengah</option>
+                                    <option value="Silawai Timur">Silawai Timur</option>
+                                </select>
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="nomor_telepon">Nomor Telepon</label>
-                                <input class="form-control" type="text" id="nomor_telepon" name="nomor_telepon"
-                                    value="" placeholder="081234567890" />
+                                <input class="form-control" type="text" id="nomor_telepon" name="nomor_telepon" placeholder="081234567890" />
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
-                                <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="tanggal_lahir"
-                                    name="tanggal_lahir" />
+                                <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="tanggal_lahir" name="tanggal_lahir" />
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="pekerjaan">Pekerjaan</label>
-                                <input class="form-control" type="text" id="pekerjaan" name="pekerjaan"
-                                    value="" placeholder="Pekerjaan" />
+                                <select id="pekerjaan" class="select2 form-select form-select-lg"
+                                    data-allow-clear="true" name="pekerjaan">
+                                    <option value="Ibu Rumah Tangga">Ibu Rumah Tangga</option>
+                                    <option value="Petani">Petani</option>
+                                    <option value="Pedagang">Pedagang</option>
+                                    <option value="Guru">Guru</option>
+                                    <option value="Dokter">Dokter</option>
+                                    <option value="Bidan">Bidan</option>
+                                    <option value="PNS">PNS</option>
+                                    <option value="PPPK">PPPK</option>
+                                    <option value="Karyawan Honorer">Karyawan Honorer</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 col-md-6" id="input-pekerjaan-lainnya" style="display: none;">
+                                <label class="form-label" for="pekerjaan_lainnya">Pekerjaan Lainnya</label>
+                                <input type="text" id="pekerjaan_lainnya" class="form-control" name="pekerjaan_lainnya" placeholder="Pekerjaan lainnya" value="none" />
                             </div>
 
                             <div class="mb-3 col-md-6">
