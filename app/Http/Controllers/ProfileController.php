@@ -40,11 +40,11 @@ class ProfileController extends Controller
                 Storage::disk('public')->delete($user->avatar);
             }
             $path = $request->file('avatar')->store('avatars', 'public');
-            $user->avatar = $path;
+            $validatedData['avatar'] = $path;
         }
 
         // Isi atribut lainnya kecuali avatar
-        $user->fill(Arr::except($validatedData, ['avatar']));
+        $user->fill($validatedData);
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
