@@ -180,6 +180,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             fv.enableValidator('pekerjaan_lainnya');
           } else {
             inputPekerjaanLainnya.style.display = 'none';
+            document.getElementById('pekerjaan_lainnya').value = '';
             fv.disableValidator('pekerjaan_lainnya');
           }
         });
