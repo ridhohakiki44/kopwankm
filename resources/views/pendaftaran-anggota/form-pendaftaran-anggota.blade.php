@@ -70,7 +70,7 @@
 
                             <div class="mb-3 col-md-6" id="input-pekerjaan-lainnya" style="display: none;">
                                 <label class="form-label" for="pekerjaan_lainnya">Pekerjaan Lainnya</label>
-                                <input type="text" id="pekerjaan_lainnya" class="form-control" name="pekerjaan_lainnya" placeholder="Pekerjaan lainnya" value="none" />
+                                <input type="text" id="pekerjaan_lainnya" class="form-control" name="pekerjaan_lainnya" placeholder="Pekerjaan lainnya" />
                             </div>
 
                             <div class="mb-3 col-md-6">

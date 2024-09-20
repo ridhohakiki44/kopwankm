@@ -52,10 +52,10 @@ class PendaftaranAnggotaController extends Controller
         }
 
         $pekerjaan = '';
-        if($request->pekerjaan_lainnya != 'none') {
-            $pekerjaan = $request->pekerjaan_lainnya;
-        } else {
+        if($request->pekerjaan_lainnya == '') {
             $pekerjaan = $request->pekerjaan;
+        } else {
+            $pekerjaan = $request->pekerjaan_lainnya;
         }
 
         $user->fill($validatedData);

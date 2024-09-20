@@ -177,10 +177,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
           // Tampilkan input pekerjaan lainnya jika "Lainnya" dipilih
           if (this.value === 'Lainnya') {
             inputPekerjaanLainnya.style.display = 'block';
-            document.getElementById('pekerjaan_lainnya').value = '';
+            fv.enableValidator('pekerjaan_lainnya');
           } else {
             inputPekerjaanLainnya.style.display = 'none';
-            document.getElementById('pekerjaan_lainnya').value = 'none';
+            fv.disableValidator('pekerjaan_lainnya');
           }
         });
     }
