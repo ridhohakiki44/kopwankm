@@ -19,6 +19,13 @@ class ProfileUpdateRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nik' => 'nullable|string|max:20',
+            'alamat' => 'nullable|string|max:255',
+            'nomor_telepon' => 'nullable|string|max:15',
+            'tanggal_lahir' => 'nullable|date',
+            'penghasilan' => 'nullable|string|max:255',
+            'ktp' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'kartu_keluarga' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

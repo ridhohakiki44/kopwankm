@@ -43,8 +43,15 @@ class ProfileController extends Controller
             $validatedData['avatar'] = $path;
         }
 
-        // Isi atribut lainnya kecuali avatar
+        $pekerjaan = '';
+        if($request->pekerjaan_lainnya == '') {
+            $pekerjaan = $request->pekerjaan;
+        } else {
+            $pekerjaan = $request->pekerjaan_lainnya;
+        }
+        
         $user->fill($validatedData);
+        $user->pekerjaan = $pekerjaan;
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
