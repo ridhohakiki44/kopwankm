@@ -204,6 +204,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
         
         if (select2Pekerjaan.val() === 'Lainnya') {
           inputPekerjaanLainnya.style.display = 'block';
+        } else {
+          fv.disableValidator('pekerjaan_lainnya');
         }
     }
 
