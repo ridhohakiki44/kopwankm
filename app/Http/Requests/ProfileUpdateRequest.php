@@ -23,6 +23,7 @@ class ProfileUpdateRequest extends FormRequest
             'alamat' => 'nullable|string|max:255',
             'nomor_telepon' => 'nullable|string|max:15',
             'tanggal_lahir' => 'nullable|date',
+            'pekerjaan' => 'nullable|string|max:255',
             'penghasilan' => 'nullable|string|max:255',
             'ktp' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'kartu_keluarga' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
