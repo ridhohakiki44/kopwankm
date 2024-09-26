@@ -92,9 +92,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
         },
         ktp: {
           validators: {
-            notEmpty: {
-              message: 'Upload KTP'
-            },
             file: {
                 maxSize: 2048 * 1024,
                 message: 'KTP tidak boleh lebih dari 2048 KB'
@@ -103,9 +100,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
         },
         kartu_keluarga: {
           validators: {
-            notEmpty: {
-              message: 'Upload Kartu Keluarga'
-            },
             file: {
                 maxSize: 2048 * 1024,
                 message: 'Kartu Keluarga tidak boleh lebih dari 2048 KB'
@@ -210,21 +204,57 @@ document.addEventListener('DOMContentLoaded', function (e) {
     }
 
     // Update/reset user image of account page
-    let accountUserImage = document.getElementById('uploadedAvatar');
-    const fileInput = document.querySelector('.account-file-input'),
-      resetFileInput = document.querySelector('.account-image-reset');
+    let avatarImage = document.getElementById('uploadedAvatar');
+    const avatarFileInput = document.querySelector('#uploadAvatar'),
+      resetAvatarInput = document.querySelector('#resetAvatar');
 
-    if (accountUserImage) {
-      const resetImage = accountUserImage.src;
-      fileInput.onchange = () => {
-        if (fileInput.files[0]) {
-          accountUserImage.src = window.URL.createObjectURL(fileInput.files[0]);
+    if (avatarImage) {
+      const resetAvatarImage = avatarImage.src;
+      avatarFileInput.onchange = () => {
+        if (avatarFileInput.files[0]) {
+          avatarImage.src = window.URL.createObjectURL(avatarFileInput.files[0]);
         }
       };
-      resetFileInput.onclick = () => {
-        fileInput.value = '';
-        accountUserImage.src = resetImage;
+      resetAvatarInput.onclick = () => {
+        avatarFileInput.value = '';
+        avatarImage.src = resetAvatarImage;
       };
+    }
+
+    // Update/reset KTP image
+    let ktpImage = document.getElementById('uploadedKtp');
+    const ktpFileInput = document.querySelector('#uploadKtp'),
+          resetKtpInput = document.querySelector('#resetKtp');
+
+    if (ktpImage) {
+        const resetKtpImage = ktpImage.src;
+        ktpFileInput.onchange = () => {
+            if (ktpFileInput.files[0]) {
+                ktpImage.src = window.URL.createObjectURL(ktpFileInput.files[0]);
+            }
+        };
+        resetKtpInput.onclick = () => {
+            ktpFileInput.value = '';
+            ktpImage.src = resetKtpImage;
+        };
+    }
+
+    // Update/reset Kartu Keluarga image
+    let kkImage = document.getElementById('uploadedKk');
+    const kkFileInput = document.querySelector('#uploadKk'),
+          resetKkInput = document.querySelector('#resetKk');
+
+    if (kkImage) {
+        const resetKkImage = kkImage.src;
+        kkFileInput.onchange = () => {
+            if (kkFileInput.files[0]) {
+                kkImage.src = window.URL.createObjectURL(kkFileInput.files[0]);
+            }
+        };
+        resetKkInput.onclick = () => {
+            kkFileInput.value = '';
+            kkImage.src = resetKkImage;
+        };
     }
   })();
 });

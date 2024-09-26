@@ -9,13 +9,13 @@
                 <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('storage/avatars/default-avatar.png') }}"
                     alt="user-avatar" class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar" />
                 <div class="button-wrapper">
-                    <label for="upload" class="btn btn-primary me-2 mb-3" tabindex="0">
+                    <label for="uploadAvatar" class="btn btn-primary me-2 mb-3" tabindex="0">
                         <span class="d-none d-sm-block">Upload new photo</span>
                         <i class="ti ti-upload d-block d-sm-none"></i>
-                        <input type="file" id="upload" name="avatar" class="account-file-input" hidden
+                        <input type="file" id="uploadAvatar" name="avatar" class="account-file-input" hidden
                             accept="image/png, image/jpeg" />
                     </label>
-                    <button type="button" class="btn btn-label-secondary account-image-reset mb-3">
+                    <button type="button" class="btn btn-label-secondary account-image-reset mb-3" id="resetAvatar">
                         <i class="ti ti-refresh-dot d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">Reset</span>
                     </button>
@@ -107,6 +107,46 @@
                         <option value="2.000.000 - 3.000.000" {{ old('penghasilan', $user->penghasilan) == '2.000.000 - 3.000.000' ? 'selected' : '' }}>2.000.000 - 3.000.000</option>
                         <option value="3.000.000 - 10.000.000" {{ old('penghasilan', $user->penghasilan) == '3.000.000 - 10.000.000' ? 'selected' : '' }}>3.000.000 - 10.000.000</option>
                     </select>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <!-- KTP Upload -->
+                    <div class="d-flex align-items-start align-items-sm-center gap-4">
+                        <img src="{{ auth()->user()->ktp ? asset('storage/' . auth()->user()->ktp) : asset('storage/documents/default-ktp.png') }}"
+                            alt="ktp" class="d-block w-px-150 h-px-100 rounded" id="uploadedKtp" />
+                        <div class="button-wrapper">
+                            <label for="uploadKtp" class="btn btn-primary me-2 mb-3" tabindex="0">
+                                <span class="d-none d-sm-block">Upload KTP</span>
+                                <i class="ti ti-upload d-block d-sm-none"></i>
+                                <input type="file" id="uploadKtp" name="ktp" class="account-file-input" hidden accept="image/png, image/jpeg" />
+                            </label>
+                            <button type="button" class="btn btn-label-secondary account-image-reset mb-3" id="resetKtp">
+                                <i class="ti ti-refresh-dot d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Reset</span>
+                            </button>
+                            <div class="text-muted">Allowed JPG or PNG. Max size of 2MB</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <!-- Kartu Keluarga Upload -->
+                    <div class="d-flex align-items-start align-items-sm-center gap-4">
+                        <img src="{{ auth()->user()->kartu_keluarga ? asset('storage/' . auth()->user()->kartu_keluarga) : asset('storage/documents/default-kk.png') }}"
+                            alt="kartu keluarga" class="d-block w-px-150 h-px-100 rounded" id="uploadedKk" />
+                        <div class="button-wrapper">
+                            <label for="uploadKk" class="btn btn-primary me-2 mb-3" tabindex="0">
+                                <span class="d-none d-sm-block">Upload Kartu Keluarga</span>
+                                <i class="ti ti-upload d-block d-sm-none"></i>
+                                <input type="file" id="uploadKk" name="kartu_keluarga" class="account-file-input" hidden accept="image/png, image/jpeg" />
+                            </label>
+                            <button type="button" class="btn btn-label-secondary account-image-reset mb-3" id="resetKk">
+                                <i class="ti ti-refresh-dot d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Reset</span>
+                            </button>
+                            <div class="text-muted">Allowed JPG or PNG. Max size of 2MB</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
