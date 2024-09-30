@@ -10,7 +10,7 @@
                     alt="user-avatar" class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar" />
                 <div class="button-wrapper">
                     <label for="uploadAvatar" class="btn btn-primary me-2 mb-3" tabindex="0">
-                        <span class="d-none d-sm-block">Upload new photo</span>
+                        <span class="d-none d-sm-block">Ganti Foto</span>
                         <i class="ti ti-upload d-block d-sm-none"></i>
                         <input type="file" id="uploadAvatar" name="avatar" class="account-file-input" hidden
                             accept="image/png, image/jpeg" />
@@ -20,7 +20,7 @@
                         <span class="d-none d-sm-block">Reset</span>
                     </button>
 
-                    <div class="text-muted">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                    <div class="text-muted">Allowed JPG or PNG. Max size of 2MB</div>
                 </div>
             </div>
         </div>
@@ -113,10 +113,21 @@
                     <!-- KTP Upload -->
                     <div class="d-flex align-items-start align-items-sm-center gap-4">
                         <img src="{{ auth()->user()->ktp ? asset('storage/' . auth()->user()->ktp) : asset('storage/documents/default-ktp.png') }}"
-                            alt="ktp" class="d-block w-px-150 h-px-100 rounded" id="uploadedKtp" />
+                            alt="ktp" class="d-block w-px-150 h-px-100 rounded" id="uploadedKtp" data-bs-toggle="modal" data-bs-target="#modals-transparent-ktp" />
+
+                        <!-- Modal transparan -->
+                        <div class="modal modal-transparent fade" id="modals-transparent-ktp" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <img id="modalImage" src="{{ asset('storage/' . auth()->user()->ktp) }}" class="img-fluid zoomable">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="button-wrapper">
                             <label for="uploadKtp" class="btn btn-primary me-2 mb-3" tabindex="0">
-                                <span class="d-none d-sm-block">Upload KTP</span>
+                                <span class="d-none d-sm-block">Ganti KTP</span>
                                 <i class="ti ti-upload d-block d-sm-none"></i>
                                 <input type="file" id="uploadKtp" name="ktp" class="account-file-input" hidden accept="image/png, image/jpeg" />
                             </label>
@@ -133,10 +144,21 @@
                     <!-- Kartu Keluarga Upload -->
                     <div class="d-flex align-items-start align-items-sm-center gap-4">
                         <img src="{{ auth()->user()->kartu_keluarga ? asset('storage/' . auth()->user()->kartu_keluarga) : asset('storage/documents/default-kk.png') }}"
-                            alt="kartu keluarga" class="d-block w-px-150 h-px-100 rounded" id="uploadedKk" />
+                            alt="kartu keluarga" class="d-block w-px-150 h-px-100 rounded" id="uploadedKk" data-bs-toggle="modal" data-bs-target="#modals-transparent-kk" />
+
+                        <!-- Modal transparan -->
+                        <div class="modal modal-transparent fade" id="modals-transparent-kk" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <img id="modalImage" src="{{ asset('storage/' . auth()->user()->kartu_keluarga) }}" class="img-fluid zoomable">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="button-wrapper">
                             <label for="uploadKk" class="btn btn-primary me-2 mb-3" tabindex="0">
-                                <span class="d-none d-sm-block">Upload Kartu Keluarga</span>
+                                <span class="d-none d-sm-block">Ganti Kartu Keluarga</span>
                                 <i class="ti ti-upload d-block d-sm-none"></i>
                                 <input type="file" id="uploadKk" name="kartu_keluarga" class="account-file-input" hidden accept="image/png, image/jpeg" />
                             </label>
