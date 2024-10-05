@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 // Redirect root to login
 Route::get('/', function () {
-    return redirect('/login');
+    return view('home');
 });
 
 Route::get('/unauthorized', function () {
