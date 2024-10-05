@@ -113,7 +113,7 @@
         </section><!-- /About Section -->
 
         <!-- Services Section -->
-        <section id="services" class="services section">
+        <section id="services" class="services section light-background">
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
@@ -221,7 +221,7 @@
         </section><!-- /Stats Section -->
 
         <!-- Team Section -->
-        <section id="team" class="team section">
+        <section id="team" class="team section light-background">
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
