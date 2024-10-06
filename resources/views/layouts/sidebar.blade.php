@@ -1,8 +1,8 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
       <div class="app-brand-link">
-        <span class="app-brand-logo demo">
-          <img src="{{ asset('backend/assets/img/branding/logo-koperasi.png') }}" alt="logo" width="25">
+        <span>
+          <img src="{{ asset('backend/assets/img/branding/logo-koperasi.png') }}" alt="logo" width="35">
         </span>
         <span class="app-brand-text demo menu-text fw-bold">Kopwan - KM</span>
       </div>
