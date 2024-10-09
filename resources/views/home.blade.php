@@ -133,7 +133,7 @@
                             <a href="#" class="stretched-link">
                                 <h3>Simpanan</h3>
                             </a>
-                            <p>Kami menyediakan layanan simpanan online yang aman untuk memudahkan anggota koperasi.</p>
+                            <p>Kami menyediakan layanan simpanan berupa simpanan pokok, simpanan wajib dan simpanan sukarela.</p>
                         </div>
                     </div><!-- End Service Item -->
 
