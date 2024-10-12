@@ -122,7 +122,7 @@
                     placeholder="Masukan password"
                     aria-describedby="password" />
                 </div>
-                <button class="btn btn-primary d-grid w-100 mb-3">Set new password</button>
+                <button class="btn btn-success d-grid w-100 mb-3">Set new password</button>
             </form>
             <div class="text-center">
               <a href="{{ route('login') }}">

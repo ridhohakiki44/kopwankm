@@ -122,7 +122,7 @@
                       aria-describedby="password" />
                   </div>
 
-                <button class="btn btn-primary d-grid w-100">Register</button>
+                <button class="btn btn-success d-grid w-100">Register</button>
               </form>
 
               <p class="text-center">
