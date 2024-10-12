@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Installment;
+use App\Models\PaymentSession;
 use App\Models\Saving;
 use App\Models\Transaction;
 use Carbon\Carbon;
@@ -65,7 +66,12 @@ class MidtransController extends Controller
             $installment->save();
         }
 
-        return view('payments.index', compact('savings', 'installments', 'savingLateFee', 'installmentLateFee'));
+        // Ambil pembayaran yang pending dari tabel payment_sessions
+        $pendingPayments = PaymentSession::where('user_id', $user->id)
+                                         ->where('status', 'pending')
+                                         ->get();
+
+        return view('payments.index', compact('savings', 'installments', 'savingLateFee', 'installmentLateFee', 'pendingPayments'));
     }
 
     public function processPayment(Request $request)
@@ -137,7 +143,26 @@ class MidtransController extends Controller
 
         $snapToken = Snap::getSnapToken($params);
 
-        return view('payments.confirmation', compact('snapToken'));
+        return view('payments.confirmation', compact('snapToken', 'orderId', 'itemDetails'));
+    }
+
+    public function createPaymentSession(Request $request)
+    {
+        $user = auth()->user();
+
+        // Decode JSON menjadi array
+        $itemDetails = json_decode($request->itemDetails, true);
+
+        // Simpan snap token dan detail transaksi
+        PaymentSession::create([
+            'user_id' => $user->id,
+            'order_id' => $request->orderId,
+            'snap_token' => $request->snapToken,
+            'status' => 'pending',
+            'item_details' => $itemDetails,
+        ]);
+
+        return redirect()->route('payments.index');
     }
 
     public function handleCallback(Request $request)
@@ -147,6 +172,20 @@ class MidtransController extends Controller
 
         $transactionStatus = $notification->transaction_status;
         $orderId = $notification->order_id;
+
+        $paymentSession = PaymentSession::where('order_id', $orderId)->first();
+        if ($paymentSession) {
+            if ($transactionStatus == 'settlement') {
+                $paymentSession->status = 'settlement';
+                $paymentSession->save();
+            } elseif ($transactionStatus == 'pending') {
+                $paymentSession->status = 'pending';
+                $paymentSession->save();
+            } elseif ($transactionStatus == 'expire') {
+                $paymentSession->status = 'expire';
+                $paymentSession->save();
+            }
+        }
 
         // Memproses order_id untuk mendapatkan bagian item details
         // order_id format: uniqid-sid-iid
@@ -176,6 +215,12 @@ class MidtransController extends Controller
                         'debit' => $saving->jumlah + $saving->denda,
                         'balance' => $currentBalance,
                     ]);
+                } elseif ($saving && $transactionStatus == 'pending') {
+                    $saving->status = 'pending';
+                    $saving->save();
+                } elseif ($saving && $transactionStatus == 'expire') {
+                    $saving->status = 'belum bayar';
+                    $saving->save();
                 }
             }
 
@@ -207,6 +252,12 @@ class MidtransController extends Controller
                         $loan->keterangan = 'pinjaman sudah dilunasi';
                         $loan->save();
                     }
+                } elseif ($installment && $transactionStatus == 'pending') {
+                    $installment->status = 'pending';
+                    $installment->save();
+                } elseif ($installment && $transactionStatus == 'expire') {
+                    $installment->status = 'belum bayar';
+                    $installment->save();
                 }
             }
         }

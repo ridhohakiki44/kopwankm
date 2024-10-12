@@ -96,6 +96,7 @@ Route::middleware('auth')->group(function () {
         
         Route::get('/payment', [MidtransController::class, 'showPaymentPage'])->name('payments.index');
         Route::post('/payment/process', [MidtransController::class, 'processPayment'])->name('payments.process');
+        Route::post('/create-payment-session', [MidtransController::class, 'createPaymentSession'])->name('create.payment.session');
     });
 
 });
