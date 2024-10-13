@@ -97,7 +97,7 @@
                         </div>
 
                         <div class="mt-2">
-                            <button type="submit" class="btn btn-primary me-2">Ajukan</button>
+                            <button type="submit" class="btn btn-success me-2">Ajukan</button>
                         </div>
                     </form>
                 </div>

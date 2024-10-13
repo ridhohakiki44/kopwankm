@@ -10,7 +10,7 @@
 
                         @if ($loans->isEmpty() || $loans->every(fn($loan) => $loan->status === 'lunas'))
                             @if (auth()->user()->role == 'anggota')
-                                <a href="{{ route('loans.create') }}" class="btn btn-primary">Ajukan Pinjaman</a>
+                                <a href="{{ route('loans.create') }}" class="btn btn-success">Ajukan Pinjaman</a>
                             @endif
                         @endif
                     </div>

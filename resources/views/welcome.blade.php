@@ -8,7 +8,7 @@
             <div class="card">
                 @if (auth()->user()->status_pk == '' || auth()->user()->status_pk == 'ditolak')
                 <div class="card-header">
-                    <a href="{{ route('pendaftaran-anggota.showForm') }}" class="btn btn-primary me-2">
+                    <a href="{{ route('pendaftaran-anggota.showForm') }}" class="btn btn-success me-2">
                         @if (auth()->user()->status_pk == 'ditolak')
                             Ajukan Kembali
                         @else

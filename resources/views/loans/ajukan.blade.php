@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                             <div class="mt-2">
-                                <button type="submit" class="btn btn-primary">Ajukan</button>
+                                <button type="submit" class="btn btn-success">Ajukan</button>
                             </div>
                         </form>
                     </div>

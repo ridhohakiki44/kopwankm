@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-2">
-                                    <button type="submit" class="btn btn-primary">Tambah</button>
+                                    <button type="submit" class="btn btn-success">Tambah</button>
                                 </div>
                             </form>
                         </div>
@@ -39,7 +39,7 @@
                         <h5 class="mb-3 mb-md-0">Daftar Simpanan</h5>
 
                         @if (auth()->user()->role == 'sekretaris')
-                            <a href="{{ route('savings.createBySekretaris') }}" class="btn btn-primary">
+                            <a href="{{ route('savings.createBySekretaris') }}" class="btn btn-success">
                                 <i class="ti ti-plus d-block d-sm-none"></i>
                                 <span class="d-none d-sm-block">Tambah Simpanan</span>
                             </a>

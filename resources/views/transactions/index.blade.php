@@ -10,20 +10,20 @@
 
                     @if ($transactions->isEmpty())
                         @if (auth()->user()->role == 'sekretaris')
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#setBalanceModal">
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#setBalanceModal">
                                 Set Balance
                             </button>
                         @endif
                     @else
                         <div class="d-flex flex-column flex-md-row">
                             <div class="button-wrapper">
-                                <button type="button" class="btn btn-label-primary me-2" data-bs-toggle="modal" data-bs-target="#printModal">
+                                <button type="button" class="btn btn-label-success me-2" data-bs-toggle="modal" data-bs-target="#printModal">
                                     <i class="ti ti-printer d-block d-sm-none"></i>
                                     <span class="d-none d-sm-block">Cetak Laporan</span>
                                 </button>
     
                                 @if (auth()->user()->role == 'sekretaris')
-                                    <a href="{{ route('transactions.create') }}" class="btn btn-primary">
+                                    <a href="{{ route('transactions.create') }}" class="btn btn-success">
                                         <i class="ti ti-plus d-block d-sm-none"></i>
                                         <span class="d-none d-sm-block">Tambah Transaksi</span>
                                     </a>

@@ -55,7 +55,7 @@
                                         <td>{{ $loan->keterangan }}</td>
                                         <td>
                                             <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal"
                                                 data-bs-target="#basicModal">
                                                 Verifikasi
                                             </button>
