@@ -9,7 +9,7 @@
                 <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('storage/avatars/default-avatar.png') }}"
                     alt="user-avatar" class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar" />
                 <div class="button-wrapper">
-                    <label for="uploadAvatar" class="btn btn-primary me-2 mb-3" tabindex="0">
+                    <label for="uploadAvatar" class="btn btn-success me-2 mb-3" tabindex="0">
                         <span class="d-none d-sm-block">Ganti Foto</span>
                         <i class="ti ti-upload d-block d-sm-none"></i>
                         <input type="file" id="uploadAvatar" name="avatar" class="account-file-input" hidden
@@ -126,7 +126,7 @@
                             </div>
                         </div>
                         <div class="button-wrapper">
-                            <label for="uploadKtp" class="btn btn-primary me-2 mb-3" tabindex="0">
+                            <label for="uploadKtp" class="btn btn-success me-2 mb-3" tabindex="0">
                                 <span class="d-none d-sm-block">Ganti KTP</span>
                                 <i class="ti ti-upload d-block d-sm-none"></i>
                                 <input type="file" id="uploadKtp" name="ktp" class="account-file-input" hidden accept="image/png, image/jpeg" />
@@ -157,7 +157,7 @@
                             </div>
                         </div>
                         <div class="button-wrapper">
-                            <label for="uploadKk" class="btn btn-primary me-2 mb-3" tabindex="0">
+                            <label for="uploadKk" class="btn btn-success me-2 mb-3" tabindex="0">
                                 <span class="d-none d-sm-block">Ganti Kartu Keluarga</span>
                                 <i class="ti ti-upload d-block d-sm-none"></i>
                                 <input type="file" id="uploadKk" name="kartu_keluarga" class="account-file-input" hidden accept="image/png, image/jpeg" />
@@ -173,7 +173,7 @@
             </div>
 
             <div class="mt-2">
-                <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                <button type="submit" class="btn btn-success me-2">Save changes</button>
                 <script>
                     var successMessage = @json(session('status'));
                 </script>

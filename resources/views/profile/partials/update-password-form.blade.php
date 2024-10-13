@@ -64,7 +64,7 @@
                     </ul>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                    <button type="submit" class="btn btn-success me-2">Save changes</button>
                     <script>
                         var successMessage = @json(session('status'));
                     </script>
