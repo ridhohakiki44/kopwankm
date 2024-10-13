@@ -14,6 +14,7 @@
                                         <div class="mb-3 col-md-6">
                                             <label for="user_id" class="form-label">Nama Anggota</label>
                                             <select id="user_id" name="user_id[]" class="select2 form-select" multiple>
+                                                <option value="all">Semua Anggota</option>
                                                 @foreach($users as $user)
                                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                 @endforeach

@@ -99,10 +99,28 @@ document.addEventListener('DOMContentLoaded', function (e) {
     if (select2user.length) {
       select2user.wrap('<div class="position-relative"></div>');
       select2user.select2({
-        placeholder: 'Pilih Anggota',
-        dropdownParent: select2user.parent()
+          placeholder: 'Pilih Anggota',
+          dropdownParent: select2user.parent()
       }).on('change', function () {
-        fv.revalidateField('user_id[]');
+          fv.revalidateField('user_id[]');
+          
+          const selectedValues = select2user.val();
+
+          // Cek apakah opsi "Semua Anggota" dipilih
+          if (selectedValues.includes('all')) {
+              // Jika "Semua Anggota" dipilih, ambil semua nilai anggota
+              const allValues = Array.from(select2user.find('option'))
+                  .map(option => option.value)
+                  .filter(value => value !== 'all');
+
+              // Jika sudah memilih semua anggota, hapus pemilihan
+              if (selectedValues.length === allValues.length + 1) { // +1 karena ada opsi "Semua Anggota"
+                  select2user.val([]).trigger('change'); // Batalkan semua pemilihan
+              } else {
+                  // Pilih semua anggota dan hapus opsi "Semua Anggota" dari pemilihan
+                  select2user.val(allValues).trigger('change');
+              }
+          }
       });
     }
 
