@@ -32,6 +32,42 @@
             </div>
         </div>
     </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Aturan Simpanan</h5>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Simpanan wajib dilakukan setiap bulan sejumlah Rp20.000.</li>
+                        <li>Simpanan wajib dibayar pada tanggal 1 setiap bulan, bagi yang telat membayar akan dikenakan denda Rp1.000 perhari.</li>
+                        <li>Untuk peminjam dengan jumlah besar atau sama dengan Rp10.000.000, maka simpanan wajib Rp50.000.</li>
+                        <li>Untuk peminjam dengan jumlah besar atau sama dengan Rp50.000.000, maka simpanan wajib Rp100.000.</li>
+                        <li>Anggota juga dapat melakukan simpanan sukarela</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Aturan Pinjaman</h5>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Pinjaman hanya diberikan kepada anggota aktif yang telah menyimpan minimal 2 tahun.</li>
+                        <li>Suku bunga pinjaman sebesar 1% per bulan.</li>
+                        <li>Jangka waktu pinjaman ditentukan oleh anggota ketika pengajuan.</li>
+                        <li>Permohonan pinjaman harus disertai jaminan seperti sertifikat tanah, sertifikat rumah, BPKB, dan surat berharga lainnya.</li>
+                        <li>Angsuran pinjaman yang telah melewati tanggal jatuh tempo akan dikenankan denda Rp1.000 perhari</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <script>
     var successMessage = @json(session('status'));
