@@ -69,18 +69,15 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                <form method="post"
-                                                    action="{{ route('verifikasi-pendaftaran.verifikasi', $pengajuan->id) }}"
-                                                    class="me-1">
+                                                <form id="verifikasi-form" method="post" action="{{ route('verifikasi-pendaftaran.verifikasi', $pengajuan->id) }}" class="me-1">
                                                     @csrf
                                                     @method('patch')
-                                                    <button type="submit" class="btn btn-sm btn-success">Verifikasi</button>
+                                                    <button type="button" id="verifikasi-btn" class="btn btn-sm btn-success">Verifikasi</button>
                                                 </form>
-                                                <form method="post"
-                                                    action="{{ route('verifikasi-pendaftaran.tolak', $pengajuan->id) }}">
+                                                <form id="tolak-form" method="post" action="{{ route('verifikasi-pendaftaran.tolak', $pengajuan->id) }}">
                                                     @csrf
                                                     @method('patch')
-                                                    <button type="submit" class="btn btn-sm btn-danger">Tolak</button>
+                                                    <button type="button" id="tolak-btn" class="btn btn-sm btn-danger">Tolak</button>
                                                 </form>
                                             </div>
                                         </td>
