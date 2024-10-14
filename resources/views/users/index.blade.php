@@ -10,11 +10,17 @@
 
                     <!-- Input Pencarian -->
                     <div class="row">
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 mb-3">
                             <input type="text" id="searchName" class="form-control" placeholder="Cari Nama">
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <input type="text" id="searchStatus" class="form-control" placeholder="Cari Status">
+                        <div class="col-md-3 mb-3">
+                            <input type="text" id="searchNik" class="form-control" placeholder="Cari NIK">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <input type="text" id="searchAlamat" class="form-control" placeholder="Cari Alamat">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <input type="text" id="searchPekerjaan" class="form-control" placeholder="Cari Pekerjaan">
                         </div>
                     </div>
 
@@ -125,7 +131,9 @@
 
         const searchInputs = {
             name: document.getElementById('searchName'),
-            status: document.getElementById('searchStatus')
+            nik: document.getElementById('searchNik'),
+            alamat: document.getElementById('searchAlamat'),
+            pekerjaan: document.getElementById('searchPekerjaan')
         };
 
         const userTableBody = document.getElementById('userTableBody');
@@ -145,7 +153,13 @@
                 if (searchInputs.name && searchInputs.name.value && !userRow.children[1].textContent.toLowerCase().includes(searchInputs.name.value.toLowerCase())) {
                     show = false;
                 }
-                if (searchInputs.status && searchInputs.status.value && !userRow.children[11].textContent.toLowerCase().includes(searchInputs.status.value.toLowerCase())) {
+                if (searchInputs.nik && searchInputs.nik.value && !userRow.children[3].textContent.toLowerCase().includes(searchInputs.nik.value.toLowerCase())) {
+                    show = false;
+                }
+                if (searchInputs.alamat && searchInputs.alamat.value && !userRow.children[5].textContent.toLowerCase().includes(searchInputs.alamat.value.toLowerCase())) {
+                    show = false;
+                }
+                if (searchInputs.pekerjaan && searchInputs.pekerjaan.value && !userRow.children[7].textContent.toLowerCase().includes(searchInputs.pekerjaan.value.toLowerCase())) {
                     show = false;
                 }
 
