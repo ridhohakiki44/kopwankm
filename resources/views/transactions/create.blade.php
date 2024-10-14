@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <h5 class="card-header">Tambahkan Transaksi</h5>
+                    <h5 class="card-header">Tambahkan Laporan</h5>
                     <div class="card-body">
                         <form action="{{ route('transactions.store') }}" method="POST" id="formTransaction">
                             @csrf

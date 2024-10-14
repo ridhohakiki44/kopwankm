@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-center">
-                    <h5 class="mb-3 mb-md-0">Riwayat Transaksi</h5>
+                    <h5 class="mb-3 mb-md-0">Laporan</h5>
 
                     @if ($transactions->isEmpty())
                         @if (auth()->user()->role == 'sekretaris')
@@ -25,7 +25,7 @@
                                 @if (auth()->user()->role == 'sekretaris')
                                     <a href="{{ route('transactions.create') }}" class="btn btn-success">
                                         <i class="ti ti-plus d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Tambah Transaksi</span>
+                                        <span class="d-none d-sm-block">Tambah Laporan</span>
                                     </a>
                                 @endif
                             </div>
@@ -35,7 +35,7 @@
                 <div class="card-body">
 
                     @if ($transactions->isEmpty())
-                        <p>Tidak ada riwayat transaksi</p>
+                        <p>Tidak ada laporan</p>
                     @else
                         <div class="table-responsive">
                             <table class="table" style="width: 1170px;">
