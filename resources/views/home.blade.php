@@ -239,7 +239,7 @@
                         data-aos-delay="100">
                         <div class="team-member">
                             <div class="member-img">
-                                <img src="{{ asset('frontend/assets/img/team/team-1.jpg') }}" class="img-fluid"
+                                <img src="{{ asset('frontend/assets/img/team/eti.png') }}" class="img-fluid"
                                     alt="">
                             </div>
                             <div class="member-info">
@@ -253,7 +253,7 @@
                         data-aos-delay="200">
                         <div class="team-member">
                             <div class="member-img">
-                                <img src="{{ asset('frontend/assets/img/team/team-2.jpg') }}" class="img-fluid"
+                                <img src="{{ asset('frontend/assets/img/team/eta.png') }}" class="img-fluid"
                                     alt="">
                             </div>
                             <div class="member-info">
@@ -267,7 +267,7 @@
                         data-aos-delay="300">
                         <div class="team-member">
                             <div class="member-img">
-                                <img src="{{ asset('frontend/assets/img/team/team-3.jpg') }}" class="img-fluid"
+                                <img src="{{ asset('frontend/assets/img/team/refika.png') }}" class="img-fluid"
                                     alt="">
                             </div>
                             <div class="member-info">
