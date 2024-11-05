@@ -73,7 +73,7 @@ class LoanController extends Controller
             Installment::create([
                 'loan_id' => $loan->id,
                 'jumlah' => $jumlahAngsuran,
-                'jatuh_tempo' => now()->addMonths($i),
+                'jatuh_tempo' => now()->startOfMonth()->addMonths($i),
                 'status' => 'belum bayar',
             ]);
         }
