@@ -9,7 +9,7 @@ Sistem koperasi simpan pinjam berbasis web yang dibuat menggunakan Laravel. Apli
 - 🏦 Pengajuan dan persetujuan pinjaman
 - 💳 Pembayaran simpanan dan angsuran pinjaman
 - 🔍 Laporan
-- ⚙️ Manajemen user & role (admin, sekretaris, anggota, ketua)
+- ⚙️ Manajemen user & role (ketua, sekretaris, bendahara, anggota)
 
 ## 🚀 Teknologi yang Digunakan
 - **Laravel** - Backend utama
